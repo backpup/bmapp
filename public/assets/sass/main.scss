@@ -1,3 +1,21 @@
-body{
-	font-family:OpenSans;
+@import "partials/sassybuttons";
+@import "partials/normalize";
+@import "compass/utilities/general/clearfix";
+@import "compass/css3";
+@import "partials/fonts";
+@import "partials/fontAwesome/font-awesome";
+@import "partials/variables";
+
+a{ text-decoration:none;}
+
+.button { @include sassy-button-structure(5px, 14px);}
+
+.red { @include sassy-button-gradient("matte", $redbutton1, $redbutton2, white, raised); }
+.blue { @include sassy-button-gradient("matte", $toolbar1, $toolbar2, white, raised); }
+
+.fa{
+	display:block;
+	float:left;
+	padding-right:5px;
+	font-size:12px;
 }

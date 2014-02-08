@@ -20,8 +20,9 @@
 						{{ Form::label('password', 'Password') }}
 						{{ Form::password('password', '', array('tabindex'=>20)) }}
 						
-						{{ Form::submit('Login') }}
-						{{ HTML::link('register', 'Register') }}
+						{{ Form::submit('Login', array('class'=>'button')) }}
+						{{ HTML::link('register', 'Register', array('class'=>'button red')) }}
+						<a href="#" class="button blue">Hello<i class ="fa fa-square"></i><i class ="fa fa-circle"></i></a>
 					{{ Form::close() }}
 				@else
 					<p>Logged in as {{ Auth::user()->username }} {{ HTML::link('logout', 'Logout') }}</p>

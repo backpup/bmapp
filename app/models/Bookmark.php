@@ -10,11 +10,6 @@ class Bookmark extends Basemodel{
 		'link'=>'required|max:255',
 		'description'=>'required|max:255',
 	);
-
-
-
-
-
 }
 
 
