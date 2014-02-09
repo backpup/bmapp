@@ -21,3 +21,8 @@ Route::get('logout', array('uses'=>'UsersController@getLogout'));
 
 Route::post('/', array('uses'=>'UsersController@postLogin'));
 Route::post('register', array('uses'=>'UsersController@postCreate'));
+
+
+
+/* App Controller */
+Route::controller('action', 'BookmarksController');

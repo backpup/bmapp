@@ -395,8 +395,8 @@ th {
 
 @font-face {
   font-family: "OpenSans";
-  src: url('/fonts/OpenSans-Regular-webfont.eot');
-  src: url('/fonts/OpenSans-Regular-webfont.eot?#iefix') format('eot'), url('/fonts/OpenSans-Regular-webfont.woff') format('woff'), url('/fonts/OpenSans-Regular-webfont.ttf') format('truetype'), url('/fonts/OpenSans-Regular-webfont.svg') format('svg');
+  src: url('../fonts/OpenSans-Regular-webfont.eot');
+  src: url('../fonts/OpenSans-Regular-webfont.eot?#iefix') format('eot'), url('../fonts/OpenSans-Regular-webfont.woff') format('woff'), url('../fonts/OpenSans-Regular-webfont.ttf') format('truetype'), url('../fonts/OpenSans-Regular-webfont.svg') format('svg');
 }
 
 /*!
@@ -2140,6 +2140,12 @@ th {
   content: "\f196";
 }
 
+body {
+  font-family: OpenSans, Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
 a {
   text-decoration: none;
 }
@@ -2236,11 +2242,4 @@ a {
   -webkit-box-shadow: none;
   -moz-box-shadow: none;
   box-shadow: none;
-}
-
-.fa {
-  display: block;
-  float: left;
-  padding-right: 5px;
-  font-size: 12px;
 }
