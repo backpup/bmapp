@@ -4,7 +4,6 @@
 	<meta charset="UTF-8">
 	<title>{{ $title }}</title>
 	
-	{{ HTML::style('/assets/css/screen.css') }}
 	{{ HTML::style('/assets/css/main.css') }}
 	{{ HTML::script('/assets/js/jquery.js') }}
 </head>
@@ -42,9 +41,9 @@
 	</section>
 	<footer id="mainFooter">
 		<div class="container">
-			&copy; Pravin Rai Bookmark it {{ date('Y') }}
+			
 		</div>
 	</footer>
-
+{{ HTML::script('/assets/js/app.js') }}
 </body>
 </html>

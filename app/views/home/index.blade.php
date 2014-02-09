@@ -17,7 +17,22 @@
 </div><!--end loginPrompt-->
 @else
 
+<div class="ratingScale">
+	<span class="ratingList">
+		<i class="fa fa-star-o fa-lg"></i>
+		<i class="fa fa-star-o fa-lg"></i>
+		<i class="fa fa-star-o fa-lg"></i>
+		<i class="fa fa-star-o fa-lg"></i>
+		<i class="fa fa-star-o fa-lg"></i>
+	</span>
+</div>
 
+{{ Form::open(array('url'=>'action/rating')) }}
+
+	{{ Form::text('rating', '') }}
+	{{ Form::submit('Submit') }}
+
+{{ Form::close() }}
 
 
 
