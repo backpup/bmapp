@@ -395,8 +395,8 @@ th {
 
 @font-face {
   font-family: "OpenSans";
-  src: url('/fonts/OpenSans-Regular-webfont.eot');
-  src: url('/fonts/OpenSans-Regular-webfont.eot?#iefix') format('eot'), url('/fonts/OpenSans-Regular-webfont.woff') format('woff'), url('/fonts/OpenSans-Regular-webfont.ttf') format('truetype'), url('/fonts/OpenSans-Regular-webfont.svg') format('svg');
+  src: url('../fonts/OpenSans-Regular-webfont.eot');
+  src: url('../fonts/OpenSans-Regular-webfont.eot?#iefix') format('eot'), url('../fonts/OpenSans-Regular-webfont.woff') format('woff'), url('../fonts/OpenSans-Regular-webfont.ttf') format('truetype'), url('../fonts/OpenSans-Regular-webfont.svg') format('svg');
 }
 
 /*!
