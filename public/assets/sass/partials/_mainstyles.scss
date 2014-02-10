@@ -18,7 +18,9 @@
   border: 1px solid #161b1f;
   color: white;
   text-shadow: #15181b 0 1px 0;
-  @include border-radius(6px);
+  @include border-top-radius(6px);
+
+  position:relative;
 
   /* maybe */
   //line-height:40px;
@@ -26,7 +28,17 @@
 
 #bookmark-adder{
 	height:10px;
-	background:$greenbtn1;
+	background:#5A6873;
 	border:1px solid darken($greenbtn1, 20%);
-	@include border-radius(4px);
+}
+
+.bmAddBtn{
+  color:lighten($bluebtn1, 45%);
+  position:absolute;
+  right:5px;
+  top:10px;
+  cursor:pointer;
+  -webkit-box-shadow: #84929f 0 1px 0 inset;
+  -moz-box-shadow: #84929f 0 1px 0 inset;
+  box-shadow: #84929f 0px -3px 3px -1px;
 }

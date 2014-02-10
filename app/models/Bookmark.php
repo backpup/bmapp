@@ -15,7 +15,7 @@ class Bookmark extends Basemodel{
 	public static function yourBookmarks()
 	{
 		if(Auth::check())
-			return static::where('id', '=', Auth::user()->id)->get();
+			return static::where('user_id', '=', Auth::user()->id)->get();
 	}
 }
 

@@ -22,10 +22,18 @@
 	<div id="header-info">
 			
 	</div><!--header-info end-->
-	<div id="header-controls"></div><!--header-controls end-->
+	<div id="header-controls">
+			<span class="bmAddBtn">
+  					<i class="fa fa-plus fa-lg"></i>
+			</span>
+	</div><!--header-controls end-->
 
 </div><!--bookmarks-header end-->
-<div id="bookmark-adder"></div><!--bookmark-adder end-->
+<div id="bookmark-adder">
+<!-- 	<span class="btnContainer">
+
+	</span> -->
+</div><!--bookmark-adder end-->
 <div id="bookmarks-body">
 <?php $counter=1 ?>
 @foreach($bookmarks as $bookmark)
@@ -56,7 +64,7 @@
 	</div>
 <?php $counter++; ?>
 @endforeach
-<form action="">
+<!-- <form action="">
 <div class="row">
 	<input type="text" class="num" disabled>
 	<input type="text" class="title" id="text">
@@ -67,29 +75,12 @@
 	</select>
 	<a href="" class="btn green save">Save</a>
 </div>
-</form>
+</form> -->
 </div><!--bookmarks-body end-->
 
 </div><!--bookmarksView end-->
 
 
-
-<!-- <div class="ratingScale">
-	<span class="ratingList">
-		<i class="fa fa-star-o fa-lg"></i>
-		<i class="fa fa-star-o fa-lg"></i>
-		<i class="fa fa-star-o fa-lg"></i>
-		<i class="fa fa-star-o fa-lg"></i>
-		<i class="fa fa-star-o fa-lg"></i>
-	</span>
-</div> -->
-
-{{ Form::open(array('url'=>'action/rating')) }}
-
-	{{ Form::text('rating', '') }}
-	{{ Form::submit('Submit') }}
-
-{{ Form::close() }}
 
 
 

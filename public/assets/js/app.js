@@ -82,13 +82,14 @@ ratingWidget.prototype.rateOut=function()
 
 var BookmarkGo = function()
 {
+	var that = this;
 	this.bmBody = $('#bookmarks-body');
 	this.bmRows = this.bmBody.children('.row');
 
-	for(var i=0; i<this.bmRows.length; i++)
+	for(var i=0; i<this.bmRows.length; i++)(function(row)
 	{
-		this.init(this.bmRows[i]);
-	}
+		return that.init(that.bmRows[row]);
+	}(i));
 }
 
 /* takes individual Rows */
@@ -98,6 +99,7 @@ BookmarkGo.prototype.init=function(row)
 	var that = this;
 	var row = $(row);
 	this.currentRow = row;
+	console.log(this.currentRow);
 
 	var editBtn = row.children('.edit');
 
@@ -160,7 +162,11 @@ BookmarkGo.prototype.bmEdit = function()
 
 			var btn = $(this);
 			btn.off();
-			btn.text('cancel').on('click', function(){
+			var icon = $('<i class="fa fa-minus-circle fa-lg">');
+			// btn.text('cancel').on('click', function(){
+			// 	return that.cancelEdit();
+			// });
+			btn.text('').append(icon).on('click', function(){
 				return that.cancelEdit();
 			});
 		
@@ -240,11 +246,137 @@ BookmarkGo.prototype.bmDelete=function()
 	this.currentRow.remove();
 }
 
+/* **************************************************** */
+/* ***********Bookmark edit-delete functionalities complete */
+/* *********************************************************** */
 
+
+
+/* **********BM-Header-Controls************************ */
+
+var ToolBar = function(){
+	this.count=true;
+	this.addBtn = $('.bmAddBtn');
+	this.plusIcon = $('<i class="fa fa-plus fa-lg"></i>');
+	this.minusIcon = $('<i class="fa fa-minus fa-lg"></i>');
+	this.addBtn.on('click', $.proxy(this.addInputBar, this));
+}
+
+ToolBar.prototype.addInputBar=function()
+{
+	if(!this.count)
+		return;
+	var that=this;
+	var rowDiv=$('<div>').addClass('row');
+	var numDiv=$('<div>').html('<i class="fa fa-cog fa-spin"></i>')
+							.addClass('actionIndicator num first');
+	var titleSpan = $("<input>").attr({type:"text", name:"title"}).addClass('title');
+
+	var ratingList = $('<span>').addClass('ratingList');
+	for(var i=0; i<5;i++)
+	{
+		ratingList.append($('<i class="fa tara fa-star-o"></i>'));
+	}
+
+	var newRatWidg = new ratingWidget(ratingList, 0);
+	var starSpan = $('<span>').addClass('stars').append(ratingList);
+	var groupSpan = $('<span>').addClass('group').text('1');
+	var saveBtn = $('<span>').addClass('btn green edit').text('Save')
+		.on('click', function(){
+			return that.saveRowInput();
+		})
+	var cancelBtn = $('<span>').addClass('btn red delete').text('')
+	.append($('<i class="fa fa-minus-circle fa-lg">')).click(function(){
+		return that.delRowInput();
+	});
+
+	var linkDiv=$('<div>').html('<i class="fa fa-link"></i>')
+							.addClass('actionIndicator num');
+	var linkSpan=$("<input>").attr({type:"text", name:"link"}).addClass('title');
+	rowDiv.append(numDiv).append(titleSpan).append(starSpan).append(groupSpan)	
+	.append(saveBtn).append(cancelBtn).append(linkDiv).append(linkSpan);
+	
+	$("#bookmarks-body").prepend(rowDiv);
+	this.row = rowDiv;
+	this.count = false;
+}
+ToolBar.prototype.saveRowInput=function()
+{
+
+
+	this.postSaveRowInput();
+}
+
+ToolBar.prototype.postSaveRowInput=function()
+{
+	var that = this;
+/* retrieved id will go here */
+	that.newRowToSave=$("<div>").addClass('row');
+	var linkInput = this.row.children().last().val();
+	$.each(this.row.children(), function(i, val){
+		var val = $(val);
+		switch(i)
+		{
+			case 0:
+			{
+				var numSpan = $('<span>')
+				.addClass('num').text('2.');
+				that.newRowToSave.append(numSpan);
+				break;
+			}
+			case 1:
+			{
+				var titleSpan = $('<span>').addClass('title').text(val.val());
+				var link = $('<a>').attr({href:linkInput, target:'_blank'});
+				link.append(titleSpan);
+				that.newRowToSave.append(link);
+				break;
+			}
+			case 2:
+			{
+				var ratingList = val.children();
+				ratingList.children('tara').off;
+				$('<span>').addClass('stars').append(ratingList)
+				.appendTo(that.newRowToSave);
+			}
+			case 3:
+			{
+				var groupSpan = $(val);
+				that.newRowToSave.append(groupSpan);
+			}
+			case 4:
+			{
+				$(val).off().text('Edit').appendTo(that.newRowToSave);
+			}
+			case 5:
+			{
+
+			}
+			case 6:
+			{
+
+			}
+			case 7:
+			{
+
+			}
+		}
+		// {
+		// }
+
+	});
+	console.log(that.newRowToSave.children());
+
+}
+ToolBar.prototype.delRowInput = function(){
+	this.row.remove();
+	this.count=true;
+}
 
 
 $(document).ready(function(){
 	var bm = new BookmarkGo();
+	var tl = new ToolBar;
 
 	//var check = new ratingWidget('ratingList');
 })
