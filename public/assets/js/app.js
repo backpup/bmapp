@@ -9,10 +9,13 @@ var ratingWidget = function(ratingList, toggle)
 	else
 		this.starCount=0;
 	this.ratingList = ratingList;
+	this.listId = this.ratingList.attr('id');
+
+
 
 	$.each(this.ratingList.find('.tara'), function(i, star){
 		//console.log(this);
-		$(star).attr('id', 'rating_'+i).css('cursor', 'pointer');
+		$(star).attr('id', that.listId+"_"+i).css('cursor', 'pointer');
 		$(star).on('mouseover', function(){ return that.rateOver( i ) });
 		$(star).click(function(){ return that.rateClick( i ) });
 	});
@@ -41,9 +44,9 @@ ratingWidget.prototype.rateOver=function(i)
 	for(var j=0; j<5; j++)
 	{
 		if(j<=i)
-			$("#rating_"+j).removeClass('fa-star-o').addClass('fa-star');
+			$("#"+this.listId+"_"+j).removeClass('fa-star-o').addClass('fa-star');
 		else
-			$("#rating_"+j).addClass('fa-star-o');
+			$('#'+this.listId+"_"+j).addClass('fa-star-o');
 	}
 }
 ratingWidget.prototype.rateClick=function(i)
@@ -53,11 +56,12 @@ ratingWidget.prototype.rateClick=function(i)
 	{
 		if(j <=i)
 		{
-			$('#rating_'+j).removeClass('fa-star-o').addClass('fa-star');
-			$('#rating_'+j).off();
+			$("#"+this.listId+"_"+j).removeClass('fa-star-o').addClass('fa-star');
+			$("#"+this.listId+"_"+j).off();
 		}
-		$('#rating_'+j).off();
-		//this.ratingList.off('mouseout');
+		
+		$("#"+this.listId+"_"+j).off();
+	
 	}
 	this.ratingList.off('mouseout');
 	this.ratingList.attr('data-rating', i+1);
@@ -80,27 +84,22 @@ ratingWidget.prototype.rateOut=function()
 
 
 
-var BookmarkGo = function()
+var BookmarkGo = function(row)
 {
 	var that = this;
 	this.bmBody = $('#bookmarks-body');
-	this.bmRows = this.bmBody.children('.row');
-
-	for(var i=0; i<this.bmRows.length; i++)(function(row)
-	{
-		return that.init(that.bmRows[row]);
-	}(i));
+	this.currentRow = row;
+	this.init();
 }
 
 /* takes individual Rows */
 /* Binds functions to edit and delete */
-BookmarkGo.prototype.init=function(row)
+BookmarkGo.prototype.init=function()
 {
 	var that = this;
-	var row = $(row);
-	this.currentRow = row;
-	console.log(this.currentRow);
-
+	var row = this.currentRow;
+	//console.log(this.currentRow);
+	this.beingEdited=true;
 	var editBtn = row.children('.edit');
 
 	//row.children('.delete').on('click', $.proxy(that.bmDelete, row));
@@ -116,18 +115,21 @@ BookmarkGo.prototype.init=function(row)
 /* what a monstrosity */
 BookmarkGo.prototype.bmEdit = function()
 {
+	if(!this.beingEdited)
+		return;
 	var that = this;
 	var oldElements = this.currentRow.children();
 	this.savedElements = oldElements.clone(true);
-	console.log(oldElements);
+
+	this.beindEdited=false;
 	$.each(oldElements, function(i, val){
 
 		if($(val).hasClass('num'))
 		{
 			var action = $('<div>').html('<i class="fa fa-cog fa-spin"></i>')
 							.addClass('actionIndicator num');
-			action.attr('data-num', $(this).text());
-			$(this).replaceWith(action);
+			action.attr('data-num', $(val).text());
+			$(val).replaceWith(action);
 		}
 
 		else if($(val).is("a"))
@@ -209,7 +211,6 @@ BookmarkGo.prototype.postEdit=function()
 			var titleSpan = $('<span>').addClass('title').text(val.val());
 			var link = $('<a>').attr({ href: val.data('url'), target:"_blank"});
 			link.append(titleSpan);
-			console.log(link);
 			val.replaceWith(link);
 		}
 
@@ -254,8 +255,9 @@ BookmarkGo.prototype.bmDelete=function()
 
 /* **********BM-Header-Controls************************ */
 
+
 var ToolBar = function(){
-	this.count=true;
+	this.toolBarChecker=true;
 	this.addBtn = $('.bmAddBtn');
 	this.plusIcon = $('<i class="fa fa-plus fa-lg"></i>');
 	this.minusIcon = $('<i class="fa fa-minus fa-lg"></i>');
@@ -264,7 +266,7 @@ var ToolBar = function(){
 
 ToolBar.prototype.addInputBar=function()
 {
-	if(!this.count)
+	if(!this.toolBarChecker)
 		return;
 	var that=this;
 	var rowDiv=$('<div>').addClass('row');
@@ -272,7 +274,9 @@ ToolBar.prototype.addInputBar=function()
 							.addClass('actionIndicator num first');
 	var titleSpan = $("<input>").attr({type:"text", name:"title"}).addClass('title');
 
-	var ratingList = $('<span>').addClass('ratingList');
+	var idForRatingList = this.getNewRowCount()+1;
+	
+	var ratingList = $('<span>').addClass('ratingList').attr('id', 'ratingList'+idForRatingList)
 	for(var i=0; i<5;i++)
 	{
 		ratingList.append($('<i class="fa tara fa-star-o"></i>'));
@@ -280,6 +284,7 @@ ToolBar.prototype.addInputBar=function()
 
 	var newRatWidg = new ratingWidget(ratingList, 0);
 	var starSpan = $('<span>').addClass('stars').append(ratingList);
+
 	var groupSpan = $('<span>').addClass('group').text('1');
 	var saveBtn = $('<span>').addClass('btn green edit').text('Save')
 		.on('click', function(){
@@ -298,7 +303,7 @@ ToolBar.prototype.addInputBar=function()
 	
 	$("#bookmarks-body").prepend(rowDiv);
 	this.row = rowDiv;
-	this.count = false;
+	this.toolBarChecker = false;
 }
 ToolBar.prototype.saveRowInput=function()
 {
@@ -306,13 +311,24 @@ ToolBar.prototype.saveRowInput=function()
 
 	this.postSaveRowInput();
 }
-
+ToolBar.prototype.getNewRowCount=function()
+{
+	var existingRows = $(".row");
+	if(existingRows.length<1)
+		return "1.";
+	else{
+		return existingRows.length;
+	}
+}
 ToolBar.prototype.postSaveRowInput=function()
 {
 	var that = this;
 /* retrieved id will go here */
 	that.newRowToSave=$("<div>").addClass('row');
+/* grabbing link to wrap title with */
 	var linkInput = this.row.children().last().val();
+/* Get the count for the row */
+	var newRowCount = that.getNewRowCount()+".";
 	$.each(this.row.children(), function(i, val){
 		var val = $(val);
 		switch(i)
@@ -320,7 +336,7 @@ ToolBar.prototype.postSaveRowInput=function()
 			case 0:
 			{
 				var numSpan = $('<span>')
-				.addClass('num').text('2.');
+				.addClass('num').text(newRowCount);
 				that.newRowToSave.append(numSpan);
 				break;
 			}
@@ -335,47 +351,57 @@ ToolBar.prototype.postSaveRowInput=function()
 			case 2:
 			{
 				var ratingList = val.children();
-				ratingList.children('tara').off;
+				ratingList.children().off();
+				var starCount = ratingList.children('.fa-star').length;
+				ratingList.attr('data-rating', starCount);
 				$('<span>').addClass('stars').append(ratingList)
 				.appendTo(that.newRowToSave);
+				break;
 			}
 			case 3:
 			{
 				var groupSpan = $(val);
 				that.newRowToSave.append(groupSpan);
+				break;
 			}
 			case 4:
 			{
-				$(val).off().text('Edit').appendTo(that.newRowToSave);
+				$(val).off().text('Edit')
+				.removeClass('green').addClass('blue')
+				.appendTo(that.newRowToSave);
+				break;
 			}
 			case 5:
 			{
-
+				$(val).off().text('').html('<i class="fa fa-times fa-lg">')
+					.appendTo(that.newRowToSave);
+					break;
 			}
-			case 6:
-			{
-
-			}
-			case 7:
-			{
-
-			}
+			default:
+				break;
 		}
 		// {
 		// }
 
 	});
-	console.log(that.newRowToSave.children());
+	this.row.replaceWith(that.newRowToSave);
+	this.toolBarChecker=true;
+	var newRow = new BookmarkGo(that.newRowToSave);
 
 }
 ToolBar.prototype.delRowInput = function(){
 	this.row.remove();
-	this.count=true;
+	this.toolBarChecker=true;
 }
 
-
+var prepRows = function(){
+	$.each($('.row'), function(i, val){
+		var name = new BookmarkGo($(val));
+	});
+}
 $(document).ready(function(){
-	var bm = new BookmarkGo();
+	prepRows();
+	//var bm = new BookmarkGo();
 	var tl = new ToolBar;
 
 	//var check = new ratingWidget('ratingList');

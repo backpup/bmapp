@@ -44,7 +44,7 @@
 			<span class="title">{{ $bookmark->title }}</span>
 		</a>
 		<span class="stars">
-			<span class="ratingList" data-rating="{{ $bookmark->stars }}">
+			<span class="ratingList" id='ratingList{{ $counter }}'data-rating="{{ $bookmark->stars }}">
 			<?php
 				$stars = (int)$bookmark->stars;
 				for($i=1; $i<=5; $i++)
