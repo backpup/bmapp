@@ -16,8 +16,65 @@
 	</div>
 </div><!--end loginPrompt-->
 @else
+<div id ="bookmarksView">
+	
+<div id="bookmarks-header">
+	<div id="header-info">
+			
+	</div><!--header-info end-->
+	<div id="header-controls"></div><!--header-controls end-->
 
-<div class="ratingScale">
+</div><!--bookmarks-header end-->
+<div id="bookmark-adder"></div><!--bookmark-adder end-->
+<div id="bookmarks-body">
+<?php $counter=1 ?>
+@foreach($bookmarks as $bookmark)
+
+	<div class="row" id="bookmark_{{ $bookmark->id }}">
+		<span class="num">{{ $counter }}.</span>
+		<a href="{{ $bookmark->link }}" target="_blank">
+			<span class="title">{{ $bookmark->title }}</span>
+		</a>
+		<span class="stars">
+			<span class="ratingList" data-rating="{{ $bookmark->stars }}">
+			<?php
+				$stars = (int)$bookmark->stars;
+				for($i=1; $i<=5; $i++)
+				{
+					if($i <= $stars)
+						echo '<i class="fa tara fa-star"></i>';
+					else
+						echo '<i class="fa tara fa-star-o"></i>';
+				}
+
+			 ?>
+			 </span>
+		</span>
+		<span class="group">{{ $bookmark->group_id }}</span>
+		<span class="btn blue edit">Edit</span>
+		<span class="btn red delete"><i class="fa fa-times fa-lg"></i></span>
+	</div>
+<?php $counter++; ?>
+@endforeach
+<form action="">
+<div class="row">
+	<input type="text" class="num" disabled>
+	<input type="text" class="title" id="text">
+	<input type="text" class="stars">
+	<select name="group" id="" class="group">
+		<option value="Hello">hello</option>
+		<option value="World">world</option>
+	</select>
+	<a href="" class="btn green save">Save</a>
+</div>
+</form>
+</div><!--bookmarks-body end-->
+
+</div><!--bookmarksView end-->
+
+
+
+<!-- <div class="ratingScale">
 	<span class="ratingList">
 		<i class="fa fa-star-o fa-lg"></i>
 		<i class="fa fa-star-o fa-lg"></i>
@@ -25,7 +82,7 @@
 		<i class="fa fa-star-o fa-lg"></i>
 		<i class="fa fa-star-o fa-lg"></i>
 	</span>
-</div>
+</div> -->
 
 {{ Form::open(array('url'=>'action/rating')) }}
 

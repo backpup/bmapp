@@ -8,6 +8,13 @@ class Userscontroller extends BaseController{
 		$this->beforeFilter('csrf', array('only'=>array('postCreate', 'postLogin')));
 	}
 
+	public function getIndex()
+	{
+		return View::make('home.index')
+			->with('title', 'Bookmark Now Yoo')
+			->with('bookmarks', Bookmark::yourBookmarks());
+	}
+
 	public function postCreate()
 	{
 		$validation = User::validate(Input::all());

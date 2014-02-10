@@ -1,0 +1,45 @@
+@import "susy";
+$total-columns:16;
+$column-width:50px;
+$gutter-width:10px;
+$grid-padding:5px;
+
+$container-style:static;
+@include border-box-sizing;
+
+p{
+	margin:0; padding:0;
+}
+.container{ @include container; }//@include susy-grid-background; }
+
+#bookmarks-body{
+
+}
+.row{
+	height:25px;
+	line-height:25px;
+	margin-bottom:5px;
+	@include span-columns(16,16);
+	.num{
+		@include span-columns(1, 16);
+	}
+	.title{
+		@include span-columns(8, 16);
+	}
+	.stars{
+		@include span-columns(2, 16);
+	}
+	.group{
+		@include span-columns(2, 16);
+	}
+	.edit{
+		@include span-columns(2, 16);
+	}
+	.delete{
+		@include span-columns(1 omega, 16);
+	}
+	.save{
+		@include pre(1);
+		@include span-columns(2 omega, 16);
+	}
+}

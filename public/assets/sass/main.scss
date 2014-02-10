@@ -5,16 +5,44 @@
 @import "partials/fonts";
 @import "partials/fontAwesome/font-awesome";
 @import "partials/variables";
+@import "partials/layout";
+@import "partials/mainstyles";
+
 
 body{
 	font-family:OpenSans, Arial, sans-serif;
-	font-size:16px;
+	font-size:15px;
 	line-height:1.5;
+	background:#F5F5F5;
 }
 
-a{ text-decoration:none;}
+a{ text-decoration:none; }
 
-.button { @include sassy-button-structure(5px, 14px);}
+.button { @include sassy-button-structure(5px, 12px, 0.5em 1.5em);}
+.btn { @include sassy-button-structure(5px, 14px); display:block; text-align:center; }
 
-.red { @include sassy-button-gradient("matte", $redbutton1, $redbutton2, white, raised); }
-.blue { @include sassy-button-gradient("matte", $toolbar1, $toolbar2, white, raised); }
+.red { @include sassy-button-gradient("matte", $redbtn1, $redbtn2, white, raised);}
+.blue { @include sassy-button-gradient("matte", $bluebtn1, $bluebtn2, white, inset); }
+.toolbar { @include sassy-button-gradient("matte", $toolbar1, $toolbar2, white, raised); }
+.green { @include sassy-button-gradient("matte", $greenbtn1); }
+
+.tara{
+	font-size:19px;
+	padding: 0 1px;
+	color:$bluebtn1;
+}
+input[disabled]{
+	background:lighten(gray, 35%);
+}
+input[type=text]{
+	@include border-radius(5px);
+	border:1px solid lighten(#434E58, 40%);
+}
+.actionIndicator{
+	//border:1px solid #A9B4BE;
+	@include border-radius(5px);
+	text-align:center;
+	//@include background(linear-gradient(color-stops($bluebtn1, $bluebtn2)));
+	background:lighten(gray, 35%);
+	border:1px solid lighten(#434E58, 40%);
+}

@@ -1,0 +1,32 @@
+#mainHeader{
+	height:60px;
+	@include background(linear-gradient(color-stops($bluebtn1, $bluebtn2)));
+}
+
+
+#bookmarks-header{
+	height:40px;
+  filter: progid:DXImageTransform.Microsoft.gradient(gradientType=0, startColorstr='#FF5E6C78', endColorstr='#FF31393F');
+  background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #5e6c78), color-stop(70%, #20282e));
+  background: -webkit-linear-gradient(#5e6c78, #20282e 70%);
+  background: -moz-linear-gradient(#5e6c78, #20282e 70%);
+  background: -o-linear-gradient(#5e6c78, #20282e 70%);
+  background: linear-gradient(#5e6c78, #20282e 70%);
+  -webkit-box-shadow: #84929f 0 1px 0 inset;
+  -moz-box-shadow: #84929f 0 1px 0 inset;
+  box-shadow: #84929f 0 1px 0 inset;
+  border: 1px solid #161b1f;
+  color: white;
+  text-shadow: #15181b 0 1px 0;
+  @include border-radius(6px);
+
+  /* maybe */
+  //line-height:40px;
+}
+
+#bookmark-adder{
+	height:10px;
+	background:$greenbtn1;
+	border:1px solid darken($greenbtn1, 20%);
+	@include border-radius(4px);
+}
