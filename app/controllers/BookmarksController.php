@@ -29,7 +29,7 @@ class BookmarksController extends BaseController{
 	}
 	public function postUpdate()
 	{
-		$bookmark = new Bookmark;
+		$bookmark = Bookmark::find(Input::get('id'));
 		$bookmark->title = Input::get('title');
 		$bookmark->link = Input::get('link');
 		$bookmark->user_id = Auth::user()->id;
@@ -39,6 +39,7 @@ class BookmarksController extends BaseController{
 	}
 	public function postDelete()
 	{
+		Bookmark::destroy(Input::get('id'));
 
 	}
 

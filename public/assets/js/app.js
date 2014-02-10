@@ -191,10 +191,11 @@ BookmarkGo.prototype.postEdit = function()
 {
 	var that = this;
  	var inputs = that.collectedInputs;
+ 	var bmId = this.currentRow.attr('id').split("_")[1];
 
  	var request = $.ajax({
  		type:'POST',
- 		data:{title:inputs[0], link:inputs[1], group_id:inputs[2], stars:inputs[3]},
+ 		data:{id:bmId, title:inputs[0], link:inputs[1], group_id:inputs[2], stars:inputs[3]},
  		url:'action/update'
  	});
 
@@ -266,7 +267,21 @@ BookmarkGo.prototype.saveEdit=function()
 
 BookmarkGo.prototype.bmDelete=function()
 {
-	this.currentRow.remove();
+	var that = this;
+	var bmId = this.currentRow.attr('id').split("_")[1];
+
+	var request = $.ajax({
+		type:'POST',
+		data:{id:bmId},
+		url:'action/delete'
+
+	}).done(function(){
+		that.currentRow.remove();
+
+	}).fail(function(){
+		that.cancelEdit();
+	})
+	
 }
 
 /* **************************************************** */
