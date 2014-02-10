@@ -73,9 +73,9 @@ ratingWidget.prototype.rateOut=function()
 	for(var j = 0; j < 5; j++)
 	{
 		if(j<this.count)
-			$("#rating_"+j).removeClass('fa-star-o').addClass('fa-star');
+			$("#"+this.listId+"_"+j).removeClass('fa-star-o').addClass('fa-star');
 		else
-			$("#rating_"+j).removeClass('fa-star').addClass('fa-star-o');
+			$("#"+this.listId+"_"+j).removeClass('fa-star').addClass('fa-star-o');
 	}
 }
 
@@ -187,15 +187,30 @@ BookmarkGo.prototype.collectValues=function()
 	/* this will collect values before new post creations or edits */
 }
 
-BookmarkGo.prototype.saveEdit = function()
-{
-	
-
-	this.postEdit();
-}
-BookmarkGo.prototype.postEdit=function()
+BookmarkGo.prototype.postEdit = function()
 {
 	var that = this;
+ 	var inputs = that.collectedInputs;
+
+ 	var request = $.ajax({
+ 		type:'POST',
+ 		data:{title:inputs[0], link:inputs[1], group_id:inputs[2], stars:inputs[3]},
+ 		url:'action/update'
+ 	});
+
+ 	request.done(function(){
+
+ 	});
+ 	request.fail(function(){
+ 		that.cancelEdit();
+ 	});
+
+}
+BookmarkGo.prototype.saveEdit=function()
+{
+	var that = this;
+	that.collectedInputs=[];
+
 	$.each(this.currentRow.children(), function(i, val){
 		var val = $(val);
 		if(val.hasClass('num'))
@@ -204,6 +219,7 @@ BookmarkGo.prototype.postEdit=function()
 			var numSpan = $('<span>').attr('data-num', count)
 				.addClass('num').text(count);
 			val.replaceWith(numSpan);
+
 		}
 
 		else if(val.hasClass('title'))
@@ -212,13 +228,18 @@ BookmarkGo.prototype.postEdit=function()
 			var link = $('<a>').attr({ href: val.data('url'), target:"_blank"});
 			link.append(titleSpan);
 			val.replaceWith(link);
+
+			that.collectedInputs.push(val.val());
+			that.collectedInputs.push(val.data('url'));
+			that.collectedInputs.push(1);
+
 		}
 
 		else if(val.hasClass('stars'))
 		{
 			var ratingList = val.children();
 			ratingList.children('tara').off();;
-
+			that.collectedInputs.push(ratingList.data('rating'));
 		}
 
 		else if(val.hasClass('edit'))
@@ -239,6 +260,7 @@ BookmarkGo.prototype.postEdit=function()
 		}
 
 	});
+	that.postEdit();
 	
 }
 
@@ -305,12 +327,8 @@ ToolBar.prototype.addInputBar=function()
 	this.row = rowDiv;
 	this.toolBarChecker = false;
 }
-ToolBar.prototype.saveRowInput=function()
-{
 
 
-	this.postSaveRowInput();
-}
 ToolBar.prototype.getNewRowCount=function()
 {
 	var existingRows = $(".row");
@@ -320,8 +338,9 @@ ToolBar.prototype.getNewRowCount=function()
 		return existingRows.length;
 	}
 }
-ToolBar.prototype.postSaveRowInput=function()
+ToolBar.prototype.saveRowInput=function()
 {
+	this.collectedInputArray=[];
 	var that = this;
 /* retrieved id will go here */
 	that.newRowToSave=$("<div>").addClass('row');
@@ -342,6 +361,8 @@ ToolBar.prototype.postSaveRowInput=function()
 			}
 			case 1:
 			{
+				that.collectedInputArray.push(val.val());
+				that.collectedInputArray.push(linkInput);
 				var titleSpan = $('<span>').addClass('title').text(val.val());
 				var link = $('<a>').attr({href:linkInput, target:'_blank'});
 				link.append(titleSpan);
@@ -353,6 +374,9 @@ ToolBar.prototype.postSaveRowInput=function()
 				var ratingList = val.children();
 				ratingList.children().off();
 				var starCount = ratingList.children('.fa-star').length;
+
+				that.collectedInputArray.push(starCount);
+
 				ratingList.attr('data-rating', starCount);
 				$('<span>').addClass('stars').append(ratingList)
 				.appendTo(that.newRowToSave);
@@ -361,6 +385,7 @@ ToolBar.prototype.postSaveRowInput=function()
 			case 3:
 			{
 				var groupSpan = $(val);
+				that.collectedInputArray.push(1);
 				that.newRowToSave.append(groupSpan);
 				break;
 			}
@@ -382,11 +407,34 @@ ToolBar.prototype.postSaveRowInput=function()
 		}
 		// {
 		// }
-
+		
 	});
-	this.row.replaceWith(that.newRowToSave);
-	this.toolBarChecker=true;
-	var newRow = new BookmarkGo(that.newRowToSave);
+	// this.row.replaceWith(that.newRowToSave);
+	// this.toolBarChecker=true;
+	// var newRow = new BookmarkGo(that.newRowToSave);
+	this.postSaveRowInput();
+
+}
+
+ToolBar.prototype.postSaveRowInput=function()
+{
+	var that = this;
+	var inputs = that.collectedInputArray;
+
+	var request=$.ajax({
+		type:'POST',
+		data:{title:inputs[0], link:inputs[1], stars:inputs[2], group_id:inputs[3]},
+		url:'action/new'
+	});
+
+	request.done(function(data){
+		that.newRowToSave.attr('id', 'bookmark_'+data);
+		that.row.replaceWith(that.newRowToSave);
+		that.toolBarChecker=true;
+		var newRow = new BookmarkGo(that.newRowToSave);
+	})
+
+
 
 }
 ToolBar.prototype.delRowInput = function(){
@@ -402,7 +450,7 @@ var prepRows = function(){
 $(document).ready(function(){
 	prepRows();
 	//var bm = new BookmarkGo();
-	var tl = new ToolBar;
+	var tl = new ToolBar();
 
 	//var check = new ratingWidget('ratingList');
 })
