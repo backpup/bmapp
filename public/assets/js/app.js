@@ -355,7 +355,7 @@ ToolBar.prototype.addInputBar=function()
 	var linkSpan=$("<input>").attr({type:"text", name:"link"}).addClass('title');
 	rowDiv.append(numDiv).append(titleSpan).append(starSpan).append(groupSpan)	
 	.append(saveBtn).append(cancelBtn).append(linkDiv).append(linkSpan);
-	console.log(rowDiv);
+	
 	$("#bookmarks-body").prepend(rowDiv);
 	this.row = rowDiv;
 	this.toolBarChecker = false;

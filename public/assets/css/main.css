@@ -2166,18 +2166,24 @@ p {
 }
 
 .row {
-  line-height: 22px;
-  margin-bottom: 5px;
+  line-height: 23px;
+  margin-bottom: 3px;
   width: 950px;
   float: left;
   margin-right: 10px;
   display: inline;
+  background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, rgba(60, 172, 226, 0.2)), color-stop(100%, rgba(27, 132, 182, 0.1)));
+  background: -webkit-linear-gradient(rgba(60, 172, 226, 0.2), rgba(27, 132, 182, 0.1));
+  background: -moz-linear-gradient(rgba(60, 172, 226, 0.2), rgba(27, 132, 182, 0.1));
+  background: -o-linear-gradient(rgba(60, 172, 226, 0.2), rgba(27, 132, 182, 0.1));
+  background: linear-gradient(rgba(60, 172, 226, 0.2), rgba(27, 132, 182, 0.1));
 }
 .row .num {
   width: 50px;
   float: left;
   margin-right: 10px;
   display: inline;
+  text-align: center;
 }
 .row .title {
   width: 470px;
