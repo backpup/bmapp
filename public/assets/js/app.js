@@ -102,6 +102,10 @@ BookmarkGo.prototype.bmEdit = function()
 	var that = this;
 	var oldElements = this.currentRow.children();
 	this.savedElements = oldElements.clone(true);
+
+	var groupMg = new GroupManager();
+	this.groupArray = groupMg.getGroupArray();
+
 	var link = '';
 
 	$.each(oldElements, function(i, val){
@@ -156,6 +160,29 @@ BookmarkGo.prototype.bmEdit = function()
 				return that.saveEdit();
 			});
 		}
+
+		else if($(val).hasClass('group'))
+		{
+			var prevSelected = $(val).text().toUpperCase();
+
+			var groupSelect = $('<select>').attr('name', 'groupSelect');
+			for(var i=0; i<that.groupArray.length; i++)
+			{
+
+				if(i%2!==0)
+				{
+					if(prevSelected==that.groupArray[i])
+						$('<option>').val(that.groupArray[i])
+						.text(that.groupArray[i]).attr("selected", true)
+						.appendTo(groupSelect);
+					else
+						groupSelect.append($('<option>').val(that.groupArray[i])
+						.text(that.groupArray[i]));
+				}
+			}
+			$(val).text("").append(groupSelect);
+
+		}
 		else if($(val).hasClass('delete')){
 			
 
@@ -189,7 +216,7 @@ BookmarkGo.prototype.postEdit = function()
 	var that = this;
  	var inputs = that.collectedInputs;
  	var bmId = this.currentRow.attr('id').split("_")[1];
- 	//console.log(inputs);
+
  	var request = $.ajax({
  		type:'POST',
  		data:{id:bmId, title:inputs[0], link:inputs[1], group_id:inputs[3], stars:inputs[2]},
@@ -209,7 +236,7 @@ BookmarkGo.prototype.saveEdit=function()
 {
 	var that = this;
 	that.collectedInputs=[];
-/* just a hack to not collect extra stuff on edit */
+
 
 
 	$.each(this.currentRow.children(), function(i, val){
@@ -249,7 +276,12 @@ BookmarkGo.prototype.saveEdit=function()
 			}
 			case 3:
 			{
-				that.collectedInputs.push(1);
+
+				var groupSpan = $(val);
+				var selected = groupSpan.children().find('option:selected').val().toUpperCase();
+				var key = that.groupArray.indexOf(selected)-1;
+				groupSpan.text(selected);
+				that.collectedInputs.push(parseInt(that.groupArray[key]));
 				break;
 			}
 			case 4:
