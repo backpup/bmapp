@@ -2185,12 +2185,14 @@ p {
   margin-right: 10px;
   display: inline;
   text-align: center;
+  height: 23px;
 }
 .row .title {
   width: 470px;
   float: left;
   margin-right: 10px;
   display: inline;
+  color: #115474;
 }
 .row .stars {
   width: 110px;
@@ -2203,6 +2205,9 @@ p {
   float: left;
   margin-right: 10px;
   display: inline;
+  text-transform: uppercase;
+  font-size: .8em;
+  color: #5e6c78;
 }
 .row .edit {
   width: 110px;
@@ -2316,38 +2321,24 @@ a {
 .red {
   *zoom: 1;
   filter: progid:DXImageTransform.Microsoft.gradient(gradientType=0, startColorstr='#FFEE5E3D', endColorstr='#FFB52F10');
-  background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ee5e3d), color-stop(70%, #cc3512));
-  background: -webkit-linear-gradient(#ee5e3d, #cc3512 70%);
-  background: -moz-linear-gradient(#ee5e3d, #cc3512 70%);
-  background: -o-linear-gradient(#ee5e3d, #cc3512 70%);
-  background: linear-gradient(#ee5e3d, #cc3512 70%);
-  -webkit-box-shadow: #f49883 0 1px 0 inset;
-  -moz-box-shadow: #f49883 0 1px 0 inset;
-  box-shadow: #f49883 0 1px 0 inset;
-  border: 1px solid #b52f10;
+  background-color: #ee5e3d;
+  border: 0;
   color: white;
-  text-shadow: #97270d 0 1px 0;
+  text-shadow: #9e290e 0 1px 0;
 }
 .red:hover {
   text-decoration: none;
 }
 .red:hover {
-  background-color: #b52f10;
-  background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(3%, #ec4b26), color-stop(75%, #b52f10));
-  background: -webkit-linear-gradient(#ec4b26 3%, #b52f10 75%);
-  background: -moz-linear-gradient(#ec4b26 3%, #b52f10 75%);
-  background: -o-linear-gradient(#ec4b26 3%, #b52f10 75%);
-  background: linear-gradient(#ec4b26 3%, #b52f10 75%);
+  background-color: #ec4b26;
 }
 .red:active {
-  -webkit-box-shadow: #a72b0f 0 1px 2px inset;
-  -moz-box-shadow: #a72b0f 0 1px 2px inset;
-  box-shadow: #a72b0f 0 1px 2px inset;
+  background-color: #eb3f17;
 }
 .red.disabled, .red[disabled] {
   filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=60);
   opacity: 0.6;
-  background: #cc3512;
+  background: false;
   cursor: default;
   -webkit-box-shadow: none;
   -moz-box-shadow: none;
@@ -2357,38 +2348,51 @@ a {
 .blue {
   *zoom: 1;
   filter: progid:DXImageTransform.Microsoft.gradient(gradientType=0, startColorstr='#FF3CACE2', endColorstr='#FF1874A0');
-  background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #3cace2), color-stop(70%, #1b84b6));
-  background: -webkit-linear-gradient(#3cace2, #1b84b6 70%);
-  background: -moz-linear-gradient(#3cace2, #1b84b6 70%);
-  background: -o-linear-gradient(#3cace2, #1b84b6 70%);
-  background: linear-gradient(#3cace2, #1b84b6 70%);
-  -webkit-box-shadow: #7fc8ec 0 1px 0 inset;
-  -moz-box-shadow: #7fc8ec 0 1px 0 inset;
-  box-shadow: #7fc8ec 0 1px 0 inset;
-  border: 1px solid #1874a0;
+  background-color: #3cace2;
+  border: 0;
   color: white;
-  text-shadow: #145f83 0 -1px 0;
+  text-shadow: #15648a 0 -1px 0;
 }
 .blue:hover {
   text-decoration: none;
 }
 .blue:hover {
-  background-color: #1874a0;
-  background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(3%, #26a3df), color-stop(75%, #1874a0));
-  background: -webkit-linear-gradient(#26a3df 3%, #1874a0 75%);
-  background: -moz-linear-gradient(#26a3df 3%, #1874a0 75%);
-  background: -o-linear-gradient(#26a3df 3%, #1874a0 75%);
-  background: linear-gradient(#26a3df 3%, #1874a0 75%);
+  background-color: #26a3df;
 }
 .blue:active {
-  -webkit-box-shadow: #166a92 0 1px 2px inset;
-  -moz-box-shadow: #166a92 0 1px 2px inset;
-  box-shadow: #166a92 0 1px 2px inset;
+  background-color: #209ad5;
 }
 .blue.disabled, .blue[disabled] {
   filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=60);
   opacity: 0.6;
-  background: #1b84b6;
+  background: false;
+  cursor: default;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+}
+
+.flatblue {
+  *zoom: 1;
+  filter: progid:DXImageTransform.Microsoft.gradient(gradientType=0, startColorstr='#FF3CACE2', endColorstr='#FF1874A0');
+  background-color: #3cace2;
+  border: 0;
+  color: white;
+  text-shadow: #15648a 0 -1px 0;
+}
+.flatblue:hover {
+  text-decoration: none;
+}
+.flatblue:hover {
+  background-color: #26a3df;
+}
+.flatblue:active {
+  background-color: #209ad5;
+}
+.flatblue.disabled, .flatblue[disabled] {
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=60);
+  opacity: 0.6;
+  background: false;
   cursor: default;
   -webkit-box-shadow: none;
   -moz-box-shadow: none;
@@ -2439,38 +2443,24 @@ a {
 .green {
   *zoom: 1;
   filter: progid:DXImageTransform.Microsoft.gradient(gradientType=0, startColorstr='#FF5CB85C', endColorstr='#FF357935');
-  background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #91cf91), color-stop(70%, #5cb85c));
-  background: -webkit-linear-gradient(#91cf91, #5cb85c 70%);
-  background: -moz-linear-gradient(#91cf91, #5cb85c 70%);
-  background: -o-linear-gradient(#91cf91, #5cb85c 70%);
-  background: linear-gradient(#91cf91, #5cb85c 70%);
-  -webkit-box-shadow: #c7e6c7 0 1px 0 inset;
-  -moz-box-shadow: #c7e6c7 0 1px 0 inset;
-  box-shadow: #c7e6c7 0 1px 0 inset;
-  border: 1px solid #4cae4c;
+  background-color: #5cb85c;
+  border: 0;
   color: white;
-  text-shadow: #429742 0 -1px 0;
+  text-shadow: #2d672d 0 -1px 0;
 }
 .green:hover {
   text-decoration: none;
 }
 .green:hover {
   background-color: #4cae4c;
-  background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(3%, #80c780), color-stop(75%, #4cae4c));
-  background: -webkit-linear-gradient(#80c780 3%, #4cae4c 75%);
-  background: -moz-linear-gradient(#80c780 3%, #4cae4c 75%);
-  background: -o-linear-gradient(#80c780 3%, #4cae4c 75%);
-  background: linear-gradient(#80c780 3%, #4cae4c 75%);
 }
 .green:active {
-  -webkit-box-shadow: #47a447 0 1px 2px inset;
-  -moz-box-shadow: #47a447 0 1px 2px inset;
-  box-shadow: #47a447 0 1px 2px inset;
+  background-color: #47a447;
 }
 .green.disabled, .green[disabled] {
   filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=60);
   opacity: 0.6;
-  background: #5cb85c;
+  background: false;
   cursor: default;
   -webkit-box-shadow: none;
   -moz-box-shadow: none;
@@ -2503,6 +2493,11 @@ input[type=text] {
   -o-border-radius: 5px;
   border-radius: 5px;
   text-align: center;
-  background: #d9d9d9;
+  background: #7fc8ec;
+  color: white;
   border: 1px solid #a9b4be;
+}
+
+.appInfo {
+  display: none;
 }

@@ -320,6 +320,10 @@ ToolBar.prototype.addInputBar=function()
 	if(!this.toolBarChecker)
 		return;
 	var that=this;
+	/* getting the group array */
+	var groupMg = new GroupManager();
+	this.groupArray = groupMg.getGroupArray();
+
 	var rowDiv=$('<div>').addClass('row');
 	var numDiv=$('<div>').html('<i class="fa fa-cog fa-spin"></i>')
 							.addClass('actionIndicator num first');
@@ -337,7 +341,15 @@ ToolBar.prototype.addInputBar=function()
 	var newRatWidg = new ratingWidget(ratingList, 0);
 	var starSpan = $('<span>').addClass('stars').append(ratingList);
 
-	var groupSpan = $('<span>').addClass('group').text('1');
+	var groupSpan = $('<span>').addClass('group');
+	var groupSelect = $('<select>').attr('name', 'groupSelect');
+	for(var i=0; i<this.groupArray.length; i++)
+	{
+
+		if(i%2!==0)
+			groupSelect.append($('<option>').val(this.groupArray[i]).text(this.groupArray[i]));
+	}
+	groupSpan.append(groupSelect);
 	var saveBtn = $('<span>').addClass('btn green edit').text('Save')
 		.on('click', function(){
 			return that.saveRowInput();
@@ -417,8 +429,11 @@ ToolBar.prototype.saveRowInput=function()
 			case 3:
 			{
 				var groupSpan = $(val);
-				that.collectedInputArray.push(1);
-				that.newRowToSave.append(groupSpan);
+				var selected = groupSpan.children().find('option:selected').val().toUpperCase();
+				var key = that.groupArray.indexOf(selected)-1;
+				that.collectedInputArray.push(parseInt(that.groupArray[key]));
+				$('<span>').addClass('group').text(selected)
+					.appendTo(that.newRowToSave);
 				break;
 			}
 			case 4:
@@ -480,15 +495,31 @@ var prepRows = function(){
 
 
 /* Functionality to manage group selections */
+
+
 var GroupManager = function()
 {
+	var that = this;
+	this.groupArray=[];
 
+	$.each($('span.bookmarkGroups'), function(i, val){
+		var number = $(val).attr('id').split("_")[1];
+		var group = $(val).text().toUpperCase();
+		that.groupArray.push(number);
+		that.groupArray.push(group);
+	});	
+}
+GroupManager.prototype.getGroupArray=function()
+{
+	return this.groupArray;
 }
 
 $(document).ready(function(){
 	prepRows();
 	//var bm = new BookmarkGo();
 	var tl = new ToolBar();
+
+	var check = new GroupManager();
 
 	//var check = new ratingWidget('ratingList');
 })

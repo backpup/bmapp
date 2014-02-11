@@ -21,10 +21,11 @@ a{ text-decoration:none; }
 .button { @include sassy-button-structure(5px, 12px, 0.5em 1.5em);}
 .btn { @include sassy-button-structure(5px, 14px); display:block; text-align:center; }
 
-.red { @include sassy-button-gradient("matte", $redbtn1, $redbtn2, white, raised);}
-.blue { @include sassy-button-gradient("matte", $bluebtn1, $bluebtn2, white, inset); }
+.red { @include sassy-button-gradient("flat", $redbtn1, $redbtn2, white, raised);}
+.blue { @include sassy-button-gradient("flat", $bluebtn1, $bluebtn2, white, inset); }
+.flatblue { @include sassy-button-gradient("flat", $bluebtn1, $bluebtn2, white, inset); }
 .toolbar { @include sassy-button-gradient("matte", $toolbar1, $toolbar2, white, raised); }
-.green { @include sassy-button-gradient("matte", $greenbtn1); }
+.green { @include sassy-button-gradient("flat", $greenbtn1); }
 
 .tara{
 	font-size:19px;
@@ -43,7 +44,11 @@ input[type=text]{
 	@include border-radius(5px);
 	text-align:center;
 	//@include background(linear-gradient(color-stops($bluebtn1, $bluebtn2)));
-	background:lighten(gray, 35%);
+	background:lighten(#3CACE2, 15%);
+	color:white;
 	border:1px solid lighten(#434E58, 40%);
+}
+.appInfo{
+	display:none;
 }
 

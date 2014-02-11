@@ -64,18 +64,14 @@
 	</div>
 <?php $counter++; ?>
 @endforeach
-<!-- <form action="">
-<div class="row">
-	<input type="text" class="num" disabled>
-	<input type="text" class="title" id="text">
-	<input type="text" class="stars">
-	<select name="group" id="" class="group">
-		<option value="Hello">hello</option>
-		<option value="World">world</option>
-	</select>
-	<a href="" class="btn green save">Save</a>
+
+<div class="appInfo">
+	@foreach ($groups as $group)
+
+		<span id="group_{{ $group->id }}"class="bookmarkGroups">{{ $group->bookmarkGroup }}</span>
+
+	@endforeach
 </div>
-</form> -->
 </div><!--bookmarks-body end-->
 
 </div><!--bookmarksView end-->
