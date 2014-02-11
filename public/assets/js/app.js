@@ -21,24 +21,7 @@ var ratingWidget = function(ratingList, toggle)
 	});
 	this.ratingList.on('mouseout', $.proxy(this.rateOut, this));
 }
-// ratingWidget.prototype.rateClick=function(i)
-// {
-// 	var that = this;
-// 	var request = $.ajax({
-// 		type:"POST",
-// 		data:{ rating: i+1 },
-// 		url:'action/rating'
-// 	})
-// 	.done(function(data)
-// 	{	
-// 		that.postClick(i);
-// 	})
-// 	.fail(function(data, textStatus, errorThrown){
-// 		console.log(errorThrown);
-// 		console.log('what');
 
-// 	});
-// }
 ratingWidget.prototype.rateOver=function(i)
 {
 	for(var j=0; j<5; j++)
@@ -119,7 +102,7 @@ BookmarkGo.prototype.bmEdit = function()
 	var that = this;
 	var oldElements = this.currentRow.children();
 	this.savedElements = oldElements.clone(true);
-
+	var link = '';
 
 	$.each(oldElements, function(i, val){
 
@@ -137,6 +120,8 @@ BookmarkGo.prototype.bmEdit = function()
 			var titleSpan = $(this).children();
 			var title = $("<input>").attr({type:"text", 'data-url':$(val).attr('href')}).addClass('title')
 				.val(titleSpan.html());
+
+			link = $(val).attr('href');
 			titleSpan.replaceWith(title);
 			title.unwrap();
 		}
@@ -172,27 +157,23 @@ BookmarkGo.prototype.bmEdit = function()
 			});
 		}
 		else if($(val).hasClass('delete')){
-			// var btn = $(this);
-			// btn.off();
-			// btn.text('cancel').on('click', $.proxy(that.bmDelete, this.currentRow));
+			
 
 			var btn = $(this);
 			btn.off();
 			var icon = $('<i class="fa fa-minus-circle fa-lg">');
-			// btn.text('cancel').on('click', function(){
-			// 	return that.cancelEdit();
-			// });
+
 			btn.text('').append(icon).on('click', function(){
 				return that.cancelEdit();
 			});
 		
 		}
 	});
-	// var linkDiv=$('<div>').html('<i class="fa fa-link"></i>')
-	// 						.addClass('actionIndicator num');
-	// var linkSpan=$("<input>").attr({type:"text", name:"link"}).addClass('title');
-	// this.currentRow.append(linkDiv);
-	// this.currentRow.append(linkSpan);
+	var linkDiv=$('<div>').html('<i class="fa fa-link"></i>')
+							.addClass('actionIndicator num');
+	var linkSpan=$("<input>").attr({type:"text", name:"link"}).addClass('title').val(link);
+	this.currentRow.append(linkDiv);
+	this.currentRow.append(linkSpan);
 
 }
 BookmarkGo.prototype.cancelEdit=function()
@@ -208,15 +189,16 @@ BookmarkGo.prototype.postEdit = function()
 	var that = this;
  	var inputs = that.collectedInputs;
  	var bmId = this.currentRow.attr('id').split("_")[1];
- 	console.log(inputs);
+ 	//console.log(inputs);
  	var request = $.ajax({
  		type:'POST',
- 		data:{id:bmId, title:inputs[0], link:inputs[1], group_id:inputs[2], stars:inputs[3]},
+ 		data:{id:bmId, title:inputs[0], link:inputs[1], group_id:inputs[3], stars:inputs[2]},
  		url:'action/update'
  	});
 
  	request.done(function(){
-
+ 		that.currentRow.children().last().remove();
+ 		that.currentRow.children().last().remove();
  	});
  	request.fail(function(){
  		that.cancelEdit();
@@ -227,56 +209,70 @@ BookmarkGo.prototype.saveEdit=function()
 {
 	var that = this;
 	that.collectedInputs=[];
+/* just a hack to not collect extra stuff on edit */
+
 
 	$.each(this.currentRow.children(), function(i, val){
 		var val = $(val);
-		if(val.hasClass('num'))
-		{
-			var count = val.data('num');
-			var numSpan = $('<span>').attr('data-num', count)
-				.addClass('num').text(count);
-			val.replaceWith(numSpan);
 
-		}
+		switch(i){
 
-		else if(val.hasClass('title'))
-		{
-			var titleSpan = $('<span>').addClass('title').text(val.val());
-			var link = $('<a>').attr({ href: val.data('url'), target:"_blank"});
-			link.append(titleSpan);
-			val.replaceWith(link);
+			case 0:
+			{
+				var count = val.data('num');
+				var numSpan = $('<span>').attr('data-num', count)
+					.addClass('num').text(count);
+				val.replaceWith(numSpan);
+				break;
+			}
+			case 1:
+			{
+				that.collectedInputs.push(val.val());
 
-			that.collectedInputs.push(val.val());
-			that.collectedInputs.push(val.data('url'));
-			that.collectedInputs.push(1);
+				var link = that.currentRow.children('.title').last().val();
+				var titleSpan = $('<span>').addClass('title').text(val.val());
+				var a = $('<a>').attr({href:link, target:"_blank"});
+				a.append(titleSpan);
+				val.replaceWith(a);
 
-		}
+				that.collectedInputs.push(link);
+				break;
+			}
+			case 2:
+			{	
+				var ratingList = val.children();
+				var starCount = ratingList.data('rating');
+				ratingList.children().off();
+				that.collectedInputs.push(ratingList.data('rating'));
+				break;
 
-		else if(val.hasClass('stars'))
-		{
-			var ratingList = val.children();
-			var starCount = ratingList.data('rating');
-			ratingList.children().off();
-
-			that.collectedInputs.push(ratingList.data('rating'));
-		}
-
-		else if(val.hasClass('edit'))
-		{
-			val.off();
-			val.removeClass('green').addClass('blue')
-				.text('Edit').click(function(){
-					return that.bmEdit();
+			}
+			case 3:
+			{
+				that.collectedInputs.push(1);
+				break;
+			}
+			case 4:
+			{
+				val.off();
+				val.removeClass('green').addClass('blue')
+					.text('Edit').click(function(){
+						return that.bmEdit();
+					});
+				break;
+			}
+			case 5:
+			{
+				val.off();
+				var icon = $('<i class="fa fa-times fa-lg">');
+				val.text('').append(icon).click(function(){
+					return that.bmDelete();
 				});
-		}
-		else if(val.hasClass('delete'))
-		{
-			val.off();
-			var icon = $('<i class="fa fa-times fa-lg">');
-			val.text('').append(icon).click(function(){
-				return that.bmDelete();
-			});
-		}
+				break;
+			}
+			default:
+				break;
+			}
 
 	});
 	that.postEdit();
@@ -442,9 +438,7 @@ ToolBar.prototype.saveRowInput=function()
 		// }
 		
 	});
-	// this.row.replaceWith(that.newRowToSave);
-	// this.toolBarChecker=true;
-	// var newRow = new BookmarkGo(that.newRowToSave);
+
 	this.postSaveRowInput();
 
 }
