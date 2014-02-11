@@ -323,7 +323,8 @@ ToolBar.prototype.addInputBar=function()
 	var rowDiv=$('<div>').addClass('row');
 	var numDiv=$('<div>').html('<i class="fa fa-cog fa-spin"></i>')
 							.addClass('actionIndicator num first');
-	var titleSpan = $("<input>").attr({type:"text", name:"title"}).addClass('title');
+	var titleSpan = $("<input>").attr({type:"text", name:"title", placeholder:"Title/description"})
+				.addClass('title');
 
 	var idForRatingList = this.getNewRowCount()+1;
 	
@@ -348,7 +349,9 @@ ToolBar.prototype.addInputBar=function()
 
 	var linkDiv=$('<div>').html('<i class="fa fa-link"></i>')
 							.addClass('actionIndicator num');
-	var linkSpan=$("<input>").attr({type:"text", name:"link"}).addClass('title');
+	var linkSpan=$("<input>").attr({type:"text", name:"link", placeholder:"link.."})
+			.addClass('title')
+
 	rowDiv.append(numDiv).append(titleSpan).append(starSpan).append(groupSpan)	
 	.append(saveBtn).append(cancelBtn).append(linkDiv).append(linkSpan);
 	
@@ -362,7 +365,7 @@ ToolBar.prototype.getNewRowCount=function()
 {
 	var existingRows = $(".row");
 	if(existingRows.length<1)
-		return "1.";
+		return "1";
 	else{
 		return existingRows.length;
 	}
@@ -474,6 +477,14 @@ var prepRows = function(){
 		var name = new BookmarkGo($(val));
 	});
 }
+
+
+/* Functionality to manage group selections */
+var GroupManager = function()
+{
+
+}
+
 $(document).ready(function(){
 	prepRows();
 	//var bm = new BookmarkGo();

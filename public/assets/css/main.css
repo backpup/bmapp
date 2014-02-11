@@ -1,4 +1,5 @@
-@import url(http://fonts.googleapis.com/css?family=Raleway:700);
+@import url(http://fonts.googleapis.com/css?family=Raleway:400);
+@import url(http://fonts.googleapis.com/css?family=Droid+Sans);
 /*! normalize.css v3.0.0 | MIT License | git.io/normalize */
 /**
  * 1. Set default font family to sans-serif.
@@ -2276,9 +2277,9 @@ p {
 }
 
 body {
-  font-family: OpenSans, Arial, sans-serif;
+  font-family: Droid Sans;
   font-size: 15px;
-  line-height: 1.4;
+  line-height: 1.5;
   background: #F5F5F5;
 }
 

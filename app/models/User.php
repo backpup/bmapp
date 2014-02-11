@@ -60,4 +60,10 @@ class User extends Basemodel implements UserInterface, RemindableInterface {
 		return $this->email;
 	}
 
+
+	public function bookmarks()
+	{
+		return $this->hasMany('Bookmark');
+	}
+
 }

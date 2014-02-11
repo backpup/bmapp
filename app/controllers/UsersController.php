@@ -12,7 +12,8 @@ class Userscontroller extends BaseController{
 	{
 		return View::make('home.index')
 			->with('title', 'Bookmark Now Yoo')
-			->with('bookmarks', Bookmark::yourBookmarks());
+			->with('bookmarks', Bookmark::yourBookmarks())
+			->with('groups', Group::yourGroups());
 	}
 
 	public function postCreate()
@@ -26,9 +27,10 @@ class Userscontroller extends BaseController{
 				'password'=>Hash::make(Input::get('password')),
 				'email'=>Input::get('email')
 			));
-
+			$user = User::where('username', '=', Input::get('username'))->first();
+			Auth::login($user);
 			return Redirect::route('home')
-						->with('msg', 'Thanks for registering! You can now log in');
+						->with('msg', 'Thanks for registering! You are now logged in');
 		}else{
 
 			return Redirect::route('register')->withErrors($validation)->withInput();

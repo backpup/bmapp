@@ -6,13 +6,23 @@ class Group extends Basemodel{
 
 	protected $table = 'groups';
 
-	protected $fillable = array('group', 'user_id');
+	protected $fillable = array('bookmarkGroup', 'user_id');
 
 	public static $rules=array(
-		'group'=>'required|alpha'
+		'bookmarkGroup'=>'required|alpha'
 	);
 
 
+	public function bookmarks()
+	{
+		return $this->hasMany('Bookmark');
+	}
+
+	public static function yourGroups()
+	{
+		if(Auth::check())
+			return static::where('user_id', '=', Auth::user()->id)->get();
+	}
 
 
 

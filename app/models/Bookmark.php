@@ -18,6 +18,16 @@ class Bookmark extends Basemodel{
 			->orderBy('created_at', 'desc')
 			->get();
 	}
+
+	public function group()
+	{
+		return $this->belongsTo('Group');
+	}
+
+	public function user()
+	{
+		return $this->belongsTo('User');
+	}
 }
 
 

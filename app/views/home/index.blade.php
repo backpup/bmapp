@@ -58,7 +58,7 @@
 			 ?>
 			 </span>
 		</span>
-		<span class="group">{{ $bookmark->group_id }}</span>
+		<span class="group">{{ $bookmark->group->bookmarkGroup }}</span>
 		<span class="btn blue edit">Edit</span>
 		<span class="btn red delete"><i class="fa fa-times fa-lg"></i></span>
 	</div>
