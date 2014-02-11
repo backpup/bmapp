@@ -2166,7 +2166,7 @@ p {
 }
 
 .row {
-  line-height: 25px;
+  line-height: 22px;
   margin-bottom: 5px;
   width: 950px;
   float: left;
@@ -2272,7 +2272,7 @@ p {
 body {
   font-family: OpenSans, Arial, sans-serif;
   font-size: 15px;
-  line-height: 1.5;
+  line-height: 1.4;
   background: #F5F5F5;
 }
 

@@ -16,8 +16,7 @@ p{
 
 }
 .row{
-	//height:25px;
-	line-height:25px;
+	line-height:22px;
 	margin-bottom:5px;
 	@include span-columns(16,16);
 	.num{
