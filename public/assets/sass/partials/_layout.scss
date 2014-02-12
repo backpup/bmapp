@@ -22,11 +22,25 @@ p{
 	.num{
 		@include span-columns(1, 16);
 		text-align:center;
+		background:#A4B7CB;
+		border: 1px solid lighten(gray, 35%);
+		@include border-bottom-left-radius(5px);
 		height:23px;
+		&:first-child{
+			border-top:none;
+		}
+		
 	}
 	.title{
 		@include span-columns(8, 16);
 		color:darken(#3CACE2, 30%);
+		&:hover{
+			//font-weight:bold;
+			text-decoration:underline;
+			color:$bluebtn1;
+			//@include background-image(linear-gradient(left, #9DD1E9, transparentize($bluebtn1, .5)));
+			 //@include background-image(linear-gradient(left top, #D8E7EF, #dddddd));
+		}
 	}
 	.stars{
 		@include span-columns(2, 16);
@@ -50,3 +64,5 @@ p{
 
 	@include background(linear-gradient(color-stops(transparentize($bluebtn1, .8), transparentize($bluebtn2, .9))));
 }
+
+

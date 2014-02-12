@@ -28,9 +28,13 @@ class Userscontroller extends BaseController{
 				'email'=>Input::get('email')
 			));
 			$user = User::where('username', '=', Input::get('username'))->first();
+			$group = new Group;
+			$group->bookmarkGroup = 'general';
+			$group->user_id = $user->id;
+			$group->save();
 			Auth::login($user);
-			return Redirect::route('home')
-						->with('msg', 'Thanks for registering! You are now logged in');
+			return Redirect::route('home');
+						
 		}else{
 
 			return Redirect::route('register')->withErrors($validation)->withInput();

@@ -6,7 +6,7 @@ class Group extends Basemodel{
 
 	protected $table = 'groups';
 
-	protected $fillable = array('bookmarkGroup', 'user_id');
+	//protected $fillable = array('bookmarkGroup', 'user_id');
 
 	public static $rules=array(
 		'bookmarkGroup'=>'required|alpha'

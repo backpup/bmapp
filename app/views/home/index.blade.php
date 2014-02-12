@@ -23,8 +23,13 @@
 			
 	</div><!--header-info end-->
 	<div id="header-controls">
-			<span class="bmAddBtn">
-  					<i class="fa fa-plus fa-lg"></i>
+			<span id="grpAddBtn">
+				<!-- <i class="fa fa-plus fa-lg"></i> -->
+				Add <i class="fa fa-folder-open"></i>
+			</span>
+			<span id="bmAddBtn">
+  					<!-- <i class="fa fa-plus fa-lg"></i> -->
+  					Add <i class="fa fa-link"></i>
 			</span>
 	</div><!--header-controls end-->
 
@@ -59,8 +64,8 @@
 			 </span>
 		</span>
 		<span class="group">{{ $bookmark->group->bookmarkGroup }}</span>
-		<span class="btn blue edit">Edit</span>
-		<span class="btn red delete"><i class="fa fa-times fa-lg"></i></span>
+		<span class="btn blue edit"><i class="fa fa-edit fa-lg"></i></span>
+		<span class="btn red delete"><i class="fa fa-trash-o"></i></span>
 	</div>
 <?php $counter++; ?>
 @endforeach

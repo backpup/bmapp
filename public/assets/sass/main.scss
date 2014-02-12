@@ -21,6 +21,9 @@ a{ text-decoration:none; }
 .button { @include sassy-button-structure(5px, 12px, 0.5em 1.5em);}
 .btn { @include sassy-button-structure(5px, 14px); display:block; text-align:center; }
 
+%smallBtn { @include sassy-button-structure(5px, 12px, 0.5em 0.5em); }
+
+
 .red { @include sassy-button-gradient("flat", $redbtn1, $redbtn2, white, raised);}
 .blue { @include sassy-button-gradient("flat", $bluebtn1, $bluebtn2, white, inset); }
 .flatblue { @include sassy-button-gradient("flat", $bluebtn1, $bluebtn2, white, inset); }

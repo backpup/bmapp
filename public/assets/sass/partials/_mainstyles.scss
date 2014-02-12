@@ -31,14 +31,31 @@
 	background:#5A6873;
 	border:1px solid darken($greenbtn1, 20%);
 }
-
-.bmAddBtn{
-  color:lighten($bluebtn1, 45%);
+.smallBtn { @include sassy-button-structure(5px, 12px, 0.5em 0.5em);   }
+#bmAddBtn{
   position:absolute;
-  right:5px;
-  top:10px;
-  cursor:pointer;
-  -webkit-box-shadow: #84929f 0 1px 0 inset;
-  -moz-box-shadow: #84929f 0 1px 0 inset;
-  box-shadow: #84929f 0px -3px 3px -1px;
+  right:-1px;
+  top:-5px;
+  // cursor:pointer;
+  // -webkit-box-shadow: #84929f 0 1px 0 inset;
+  // -moz-box-shadow: #84929f 0 1px 0 inset;
+  // box-shadow: #84929f 0px -3px 3px -1px;
+  // @include sassy-button("matte", 5px, 12px, #CCCCBA, #B6b69d);
+  @include sassy-button-gradient("matte", #3D5F7F, #63727F);
+  @extend .smallBtn;
+ 
+  .fa-link{
+    color:#39CCCC;
+  }
+}
+#grpAddBtn{
+  @extend .smallBtn;
+  @include sassy-button-gradient("simple", $toolbar1, $toolbar2);
+  border:none;
+  position:absolute;
+  top:0px;
+  right:240px;
+   .fa-folder-open{
+    color:#FFE9B2;
+  }
 }

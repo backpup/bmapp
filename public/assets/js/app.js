@@ -20,7 +20,7 @@ var ratingWidget = function(ratingList, toggle)
 		$(star).click(function(){ return that.rateClick( i ) });
 	});
 	this.ratingList.on('mouseout', $.proxy(this.rateOut, this));
-}
+};
 
 ratingWidget.prototype.rateOver=function(i)
 {
@@ -31,7 +31,8 @@ ratingWidget.prototype.rateOver=function(i)
 		else
 			$('#'+this.listId+"_"+j).addClass('fa-star-o');
 	}
-}
+};
+
 ratingWidget.prototype.rateClick=function(i)
 {
 	var current = i;
@@ -48,7 +49,7 @@ ratingWidget.prototype.rateClick=function(i)
 	}
 	this.ratingList.off('mouseout');
 	this.ratingList.attr('data-rating', i+1);
-}
+};
 
 
 ratingWidget.prototype.rateOut=function()
@@ -60,7 +61,7 @@ ratingWidget.prototype.rateOut=function()
 		else
 			$("#"+this.listId+"_"+j).removeClass('fa-star').addClass('fa-star-o');
 	}
-}
+};
 
 /* ************* The End ************************************ */
 /**************************************************************/
@@ -73,7 +74,7 @@ var BookmarkGo = function(row)
 	this.bmBody = $('#bookmarks-body');
 	this.currentRow = row;
 	this.init();
-}
+};
 
 /* takes individual Rows */
 /* Binds functions to edit and delete */
@@ -93,7 +94,7 @@ BookmarkGo.prototype.init=function()
 		return that.bmEdit();
 	});
 	
-}
+};
 
 /* what a monstrosity */
 BookmarkGo.prototype.bmEdit = function()
@@ -156,7 +157,7 @@ BookmarkGo.prototype.bmEdit = function()
 			var btn = $(this);
 			btn.off();
 			btn.removeClass('blue').addClass('green')
-			.text('Save').click(function(){
+			.html('<i class="fa fa-save fa-lg">').click(function(){
 				return that.saveEdit();
 			});
 		}
@@ -202,12 +203,13 @@ BookmarkGo.prototype.bmEdit = function()
 	this.currentRow.append(linkDiv);
 	this.currentRow.append(linkSpan);
 
-}
+};
+
 BookmarkGo.prototype.cancelEdit=function()
 {
 	this.currentRow.children().remove();
 	this.currentRow.append(this.savedElements);
-}
+};
 
 
 
@@ -231,7 +233,8 @@ BookmarkGo.prototype.postEdit = function()
  		that.cancelEdit();
  	});
 
-}
+};
+
 BookmarkGo.prototype.saveEdit=function()
 {
 	var that = this;
@@ -288,7 +291,7 @@ BookmarkGo.prototype.saveEdit=function()
 			{
 				val.off();
 				val.removeClass('green').addClass('blue')
-					.text('Edit').click(function(){
+					.html('<i class="fa fa-edit fa-lg">').click(function(){
 						return that.bmEdit();
 					});
 				break;
@@ -296,7 +299,7 @@ BookmarkGo.prototype.saveEdit=function()
 			case 5:
 			{
 				val.off();
-				var icon = $('<i class="fa fa-times fa-lg">');
+				var icon = $('<i class="fa fa-trash-o">');
 				val.text('').append(icon).click(function(){
 					return that.bmDelete();
 				});
@@ -309,7 +312,7 @@ BookmarkGo.prototype.saveEdit=function()
 	});
 	that.postEdit();
 	
-}
+};
 
 BookmarkGo.prototype.bmDelete=function()
 {
@@ -328,7 +331,7 @@ BookmarkGo.prototype.bmDelete=function()
 		that.cancelEdit();
 	})
 	
-}
+};
 
 /* **************************************************** */
 /* ***********Bookmark edit-delete functionalities complete */
@@ -341,11 +344,11 @@ BookmarkGo.prototype.bmDelete=function()
 
 var ToolBar = function(){
 	this.toolBarChecker=true;
-	this.addBtn = $('.bmAddBtn');
+	this.addBtn = $('#bmAddBtn');
 	this.plusIcon = $('<i class="fa fa-plus fa-lg"></i>');
 	this.minusIcon = $('<i class="fa fa-minus fa-lg"></i>');
 	this.addBtn.on('click', $.proxy(this.addInputBar, this));
-}
+};
 
 ToolBar.prototype.addInputBar=function()
 {
@@ -382,7 +385,7 @@ ToolBar.prototype.addInputBar=function()
 			groupSelect.append($('<option>').val(this.groupArray[i]).text(this.groupArray[i]));
 	}
 	groupSpan.append(groupSelect);
-	var saveBtn = $('<span>').addClass('btn green edit').text('Save')
+	var saveBtn = $('<span>').addClass('btn green edit').html('<i class="fa fa-save fa-lg">')
 		.on('click', function(){
 			return that.saveRowInput();
 		})
@@ -402,7 +405,7 @@ ToolBar.prototype.addInputBar=function()
 	$("#bookmarks-body").prepend(rowDiv);
 	this.row = rowDiv;
 	this.toolBarChecker = false;
-}
+};
 
 
 ToolBar.prototype.getNewRowCount=function()
@@ -413,7 +416,8 @@ ToolBar.prototype.getNewRowCount=function()
 	else{
 		return existingRows.length;
 	}
-}
+};
+
 ToolBar.prototype.saveRowInput=function()
 {
 	this.collectedInputArray=[];
@@ -470,14 +474,14 @@ ToolBar.prototype.saveRowInput=function()
 			}
 			case 4:
 			{
-				$(val).off().text('Edit')
+				$(val).off().html('<i class="fa fa-edit fa-lg">')
 				.removeClass('green').addClass('blue')
 				.appendTo(that.newRowToSave);
 				break;
 			}
 			case 5:
 			{
-				$(val).off().text('').html('<i class="fa fa-times fa-lg">')
+				$(val).off().text('').html('<i class="fa fa-trash-o">')
 					.appendTo(that.newRowToSave);
 					break;
 			}
@@ -491,7 +495,7 @@ ToolBar.prototype.saveRowInput=function()
 
 	this.postSaveRowInput();
 
-}
+};
 
 ToolBar.prototype.postSaveRowInput=function()
 {
@@ -511,19 +515,14 @@ ToolBar.prototype.postSaveRowInput=function()
 		var newRow = new BookmarkGo(that.newRowToSave);
 	})
 
+};
 
-
-}
 ToolBar.prototype.delRowInput = function(){
 	this.row.remove();
 	this.toolBarChecker=true;
-}
+};
 
-var prepRows = function(){
-	$.each($('.row'), function(i, val){
-		var name = new BookmarkGo($(val));
-	});
-}
+
 
 
 /* Functionality to manage group selections */
@@ -540,18 +539,31 @@ var GroupManager = function()
 		that.groupArray.push(number);
 		that.groupArray.push(group);
 	});	
-}
+};
+
 GroupManager.prototype.getGroupArray=function()
 {
 	return this.groupArray;
-}
+};
+
+var prepRows = function(){
+	var count = 0;
+	$.each($('.row'), function(i, val){
+		var name = new BookmarkGo($(val));
+		count++;
+	});
+	return count;
+};
+
 
 $(document).ready(function(){
-	prepRows();
-	//var bm = new BookmarkGo();
+	
+	var init = prepRows();
 	var tl = new ToolBar();
 
+	if(init==0)
+		$("#bmAddBtn").trigger("click");
+	
 	var check = new GroupManager();
 
-	//var check = new ratingWidget('ratingList');
-})
+});

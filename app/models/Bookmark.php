@@ -18,6 +18,7 @@ class Bookmark extends Basemodel{
 			->orderBy('created_at', 'desc')
 			->get();
 	}
+	
 
 	public function group()
 	{
