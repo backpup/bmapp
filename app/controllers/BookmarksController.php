@@ -43,6 +43,19 @@ class BookmarksController extends BaseController{
 
 	}
 
+	public function postNewGroup()
+	{
+		header("Cache-Control: no-cache");
+		header("Pragma: no-cache");
+		header("Ajax-Response-Type: application/json");
+		$group = new Group;
+		$group->bookmarkGroup = Input::get('group');
+		$group->user_id = Auth::user()->id;
+		$group->save();
+		$insertedId=json_encode(['grpId'=>$group->id, 'group'=>$group->bookmarkGroup]);
+		echo $insertedId;
+	}
+
 }
 
 

@@ -21,13 +21,13 @@ a{ text-decoration:none; }
 .button { @include sassy-button-structure(5px, 12px, 0.5em 1.5em);}
 .btn { @include sassy-button-structure(5px, 14px); display:block; text-align:center; }
 
-%smallBtn { @include sassy-button-structure(5px, 12px, 0.5em 0.5em); }
+
 
 
 .red { @include sassy-button-gradient("flat", $redbtn1, $redbtn2, white, raised);}
 .blue { @include sassy-button-gradient("flat", $bluebtn1, $bluebtn2, white, inset); }
 .flatblue { @include sassy-button-gradient("flat", $bluebtn1, $bluebtn2, white, inset); }
-.toolbar { @include sassy-button-gradient("matte", $toolbar1, $toolbar2, white, raised); }
+.toolbar { @include sassy-button-gradient("flat", $toolbar1, $toolbar2, white, raised); }
 .green { @include sassy-button-gradient("flat", $greenbtn1); }
 
 .tara{
@@ -38,9 +38,11 @@ a{ text-decoration:none; }
 input[disabled]{
 	background:lighten(gray, 35%);
 }
-input[type=text]{
-	@include border-radius(5px);
-	border:1px solid lighten(#434E58, 40%);
+#bookmarks-body{
+	input[type=text]{
+		@include border-radius(5px);
+		border:1px solid lighten(#434E58, 40%);
+	}
 }
 .actionIndicator{
 	//border:1px solid #A9B4BE;

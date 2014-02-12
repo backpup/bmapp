@@ -59,3 +59,24 @@
     color:#FFE9B2;
   }
 }
+.grpForm{
+  color:black;
+  font-size:.9em;
+  @include clearfix;
+  position:absolute;
+  right:105px;
+  top:5px;
+  z-index:10;
+  input{
+    float:left;
+    @include border-top-left-radius(2px);
+    @include border-bottom-left-radius(2px);
+    border: none;
+    height:24px;
+  }
+  span{
+    @include sassy-button-structure(2px, 16px, 0em .7em); display:block; text-align:center; 
+    float:left;
+    margin:0 1px;
+  }
+}

@@ -318,7 +318,7 @@ BookmarkGo.prototype.bmDelete=function()
 {
 	var that = this;
 	var bmId = this.currentRow.attr('id').split("_")[1];
-
+	
 	var request = $.ajax({
 		type:'POST',
 		data:{id:bmId},
@@ -344,11 +344,84 @@ BookmarkGo.prototype.bmDelete=function()
 
 var ToolBar = function(){
 	this.toolBarChecker=true;
+	this.grpBarChecker = true;
 	this.addBtn = $('#bmAddBtn');
+	this.grpAddBtn = $('#grpAddBtn');
+
 	this.plusIcon = $('<i class="fa fa-plus fa-lg"></i>');
 	this.minusIcon = $('<i class="fa fa-minus fa-lg"></i>');
 	this.addBtn.on('click', $.proxy(this.addInputBar, this));
+	this.grpAddBtn.on('click', $.proxy(this.initiateGrpAdd, this));
 };
+/* -------Group functionality-------- */
+
+ToolBar.prototype.initiateGrpAdd=function(){
+	// if(!this.toolBarChecker)
+	// 	return;
+	var that = this;
+	if(this.grpBarChecker)
+	{
+		this.grpAddBtn.css({display:'none', zIndex:'-1'});
+		that.grpFormSpan = $('<span>').addClass('grpForm').css('zIndex', 10);
+		var inputElem = $('<input>').attr({type:"text", id:"newGrp", placeholder:"group name...", size:14})
+			.addClass('grpInput').on('keyup', function(){
+				var input = $(this).val();
+				var bool = /^[a-zA-Z\s_0-9]+$/.test(input);
+				if(!bool)
+					$(this).val(input.substr(0, input.length-1));
+				if(input.length>28)
+				{
+					alert('Max-length allowed is 28');
+					$(this).val(input.substr(0, 28));
+				}
+			});
+		var saveBtn = $('<span>').addClass('btn green').html('<i class="fa fa-save"></i>')
+		.click(function(){
+			return that.groupSave();
+		});
+		var delBtn = $('<span>').addClass('btn red').html('<i class="fa fa-trash-o"></i>')
+			.click(function(){
+				that.grpFormSpan.css({display:'none', zIndex:'-1'});
+				that.grpAddBtn.css({display:'', zIndex:'10'});
+			});
+
+
+		that.grpFormSpan.append(inputElem).append(saveBtn).append(delBtn);
+		$('#header-controls').append(that.grpFormSpan);
+		this.grpBarChecker=false;
+	}else{
+		this.grpAddBtn.css({display:'none', zIndex:'-1'});
+		$('.grpForm').css({display:'', zIndex:'10'}).find('input').val("");
+	}
+	
+};
+
+
+ToolBar.prototype.groupSave=function(){
+	var val = $("#newGrp").val();
+	if(val.length==0)
+		return;
+	var that = this;
+	var request = $.ajax({
+		type:'POST',
+		url:'action/new-group',
+		data:{group:val},
+		dataType:'json'
+	})
+
+	.done(function(data){
+		var grpSpan = $('<span>').attr('id', 'group_'+data.grpId).addClass('bookmarkGroups')
+			.text(data.group);
+		$(".appInfo").append(grpSpan);
+		that.grpFormSpan.css({display:'none', zIndex:'-1'});
+		that.grpAddBtn.css({display:'', zIndex:'10'});
+	})
+
+};
+/* --xxxxxxxx---group functionality end--xxxxxxxxx-- */
+
+
+/* ----Row functionality-----*/
 
 ToolBar.prototype.addInputBar=function()
 {

@@ -2200,6 +2200,7 @@ p {
   float: left;
   margin-right: 10px;
   display: inline;
+  word-wrap: break-word;
   color: #115474;
 }
 .row .title:hover {
@@ -2220,6 +2221,7 @@ p {
   text-transform: uppercase;
   font-size: .8em;
   color: #5e6c78;
+  word-wrap: break-word;
 }
 .row .edit {
   width: 110px;
@@ -2389,6 +2391,43 @@ p {
   color: #FFE9B2;
 }
 
+.grpForm {
+  color: black;
+  font-size: .9em;
+  overflow: hidden;
+  *zoom: 1;
+  position: absolute;
+  right: 105px;
+  top: 5px;
+  z-index: 10;
+}
+.grpForm input {
+  float: left;
+  -moz-border-radius-topleft: 2px;
+  -webkit-border-top-left-radius: 2px;
+  border-top-left-radius: 2px;
+  -moz-border-radius-bottomleft: 2px;
+  -webkit-border-bottom-left-radius: 2px;
+  border-bottom-left-radius: 2px;
+  border: none;
+  height: 24px;
+}
+.grpForm span {
+  font-size: 16px;
+  padding: 0em 0.7em;
+  display: inline-block;
+  cursor: pointer;
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  -ms-border-radius: 2px;
+  -o-border-radius: 2px;
+  border-radius: 2px;
+  display: block;
+  text-align: center;
+  float: left;
+  margin: 0 1px;
+}
+
 body {
   font-family: Droid Sans;
   font-size: 15px;
@@ -2510,38 +2549,24 @@ a {
 .toolbar {
   *zoom: 1;
   filter: progid:DXImageTransform.Microsoft.gradient(gradientType=0, startColorstr='#FF5E6C78', endColorstr='#FF31393F');
-  background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #5e6c78), color-stop(70%, #20282e));
-  background: -webkit-linear-gradient(#5e6c78, #20282e 70%);
-  background: -moz-linear-gradient(#5e6c78, #20282e 70%);
-  background: -o-linear-gradient(#5e6c78, #20282e 70%);
-  background: linear-gradient(#5e6c78, #20282e 70%);
-  -webkit-box-shadow: #84929f 0 1px 0 inset;
-  -moz-box-shadow: #84929f 0 1px 0 inset;
-  box-shadow: #84929f 0 1px 0 inset;
-  border: 1px solid #161b1f;
+  background-color: #5e6c78;
+  border: 0;
   color: white;
-  text-shadow: #15181b 0 1px 0;
+  text-shadow: #262c31 0 1px 0;
 }
 .toolbar:hover {
   text-decoration: none;
 }
 .toolbar:hover {
-  background-color: #161b1f;
-  background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(3%, #535f6a), color-stop(75%, #161b1f));
-  background: -webkit-linear-gradient(#535f6a 3%, #161b1f 75%);
-  background: -moz-linear-gradient(#535f6a 3%, #161b1f 75%);
-  background: -o-linear-gradient(#535f6a 3%, #161b1f 75%);
-  background: linear-gradient(#535f6a 3%, #161b1f 75%);
+  background-color: #535f6a;
 }
 .toolbar:active {
-  -webkit-box-shadow: #0f1316 0 1px 2px inset;
-  -moz-box-shadow: #0f1316 0 1px 2px inset;
-  box-shadow: #0f1316 0 1px 2px inset;
+  background-color: #4c5761;
 }
 .toolbar.disabled, .toolbar[disabled] {
   filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=60);
   opacity: 0.6;
-  background: #20282e;
+  background: false;
   cursor: default;
   -webkit-box-shadow: none;
   -moz-box-shadow: none;
@@ -2585,7 +2610,7 @@ input[disabled] {
   background: #d9d9d9;
 }
 
-input[type=text] {
+#bookmarks-body input[type=text] {
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
   -ms-border-radius: 5px;

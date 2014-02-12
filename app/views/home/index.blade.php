@@ -23,6 +23,13 @@
 			
 	</div><!--header-info end-->
 	<div id="header-controls">
+<!-- 			<span class="grpForm">
+
+				<input type="text" placeholder = "group name..." size="14" class = "grpInput"/>
+				<span class="btn green"><i class="fa fa-save"></i></span>
+				<span class="btn red"><i class="fa fa-trash-o"></i></span>
+				
+			</span> -->
 			<span id="grpAddBtn">
 				<!-- <i class="fa fa-plus fa-lg"></i> -->
 				Add <i class="fa fa-folder-open"></i>
