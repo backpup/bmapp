@@ -25,10 +25,10 @@ Route::post('register', array('uses'=>'UsersController@postCreate'));
 
 Route::get('testthis', function(){
 	//return Bookmark::where('id','=',1)->get(array('title'));
-	$group = new Group;
-	$group->bookmarkGroup = 'general';
-	$group->user_id = '1';
-	$group->save();
+	// $group = new Group;
+	// $group->bookmarkGroup = 'general';
+	// $group->user_id = '1';
+	// $group->save();
 		// $bookmark = new Bookmark;
 		// $bookmark->title = 'hello';
 		// $bookmark->link = 'http://helloworld.com';

@@ -1,23 +1,29 @@
 #mainHeader{
 	height:60px;
-	@include background(linear-gradient(color-stops($bluebtn1, $bluebtn2)));
+	//@include background(linear-gradient(color-stops($bluebtn1, $bluebtn2)));
+  //@include background(linear-gradient(#F5F5F5, #DFDFDF));
+  border-bottom: 1px solid #DFDFDF;
+  @include background(linear-gradient(#3c3c3c, #222));
+
+  margin-bottom:30px;
 }
 
 
 #bookmarks-header{
-	height:40px;
-  filter: progid:DXImageTransform.Microsoft.gradient(gradientType=0, startColorstr='#FF5E6C78', endColorstr='#FF31393F');
-  background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #5e6c78), color-stop(70%, #20282e));
-  background: -webkit-linear-gradient(#5e6c78, #20282e 70%);
-  background: -moz-linear-gradient(#5e6c78, #20282e 70%);
-  background: -o-linear-gradient(#5e6c78, #20282e 70%);
-  background: linear-gradient(#5e6c78, #20282e 70%);
-  -webkit-box-shadow: #84929f 0 1px 0 inset;
-  -moz-box-shadow: #84929f 0 1px 0 inset;
-  box-shadow: #84929f 0 1px 0 inset;
-  border: 1px solid #161b1f;
-  color: white;
-  text-shadow: #15181b 0 1px 0;
+	height:30px;
+  // filter: progid:DXImageTransform.Microsoft.gradient(gradientType=0, startColorstr='#FF5E6C78', endColorstr='#FF31393F');
+  // background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #5e6c78), color-stop(70%, #20282e));
+  // background: -webkit-linear-gradient(#5e6c78, #20282e 70%);
+  // background: -moz-linear-gradient(#5e6c78, #20282e 70%);
+  // background: -o-linear-gradient(#5e6c78, #20282e 70%);
+  // background: linear-gradient(#5e6c78, #20282e 70%);
+  // -webkit-box-shadow: #84929f 0 1px 0 inset;
+  // -moz-box-shadow: #84929f 0 1px 0 inset;
+  // box-shadow: #84929f 0 1px 0 inset;
+  // border: 1px solid #161b1f;
+  // color: white;
+  // text-shadow: #15181b 0 1px 0;
+  @include background(linear-gradient(#3E3E3E, #202020));
   @include border-top-radius(6px);
 
   position:relative;
@@ -34,30 +40,63 @@
 .smallBtn { @include sassy-button-structure(5px, 12px, 0.5em 0.5em);   }
 #bmAddBtn{
   position:absolute;
-  right:-1px;
-  top:-5px;
-  // cursor:pointer;
-  // -webkit-box-shadow: #84929f 0 1px 0 inset;
-  // -moz-box-shadow: #84929f 0 1px 0 inset;
-  // box-shadow: #84929f 0px -3px 3px -1px;
-  // @include sassy-button("matte", 5px, 12px, #CCCCBA, #B6b69d);
-  @include sassy-button-gradient("matte", #3D5F7F, #63727F);
-  @extend .smallBtn;
+  //right:-1px;
+  //top:-5px;
+  right:0px;
+  top:0px;
+  height:30px;
+  line-height:30px;
+  @include border-top-right-radius(5px);
+  width:55px;
+  cursor:pointer;
+  text-align:center;
+  border-left:1px solid #858585;
+  text-shadow: #15181b 0 1px 0;
+  //@include sassy-button-gradient("matte", #3D5F7F, #63727F);
+  //@extend .smallBtn;
  
+  color:lighten($toolbar1, 60%);
+  font-size:14px;
+  @include background(linear-gradient(#3A3A3A,#232323));
+  &:hover{
+    @include background(linear-gradient(lighten(#3A3A3A, 20%),lighten(#232323, 10%)));
+    
+    //@include background(linear-gradient(#C9C9C9,#858585));
+  }
   .fa-link{
-    color:#39CCCC;
+    color:#E5E6D6;
+
   }
 }
 #grpAddBtn{
-  @extend .smallBtn;
-  @include sassy-button-gradient("simple", $toolbar1, $toolbar2);
-  border:none;
   position:absolute;
+  //right:-1px;
+  //top:-5px;
+  right:230px;
   top:0px;
-  right:240px;
-   .fa-folder-open{
-    color:#FFE9B2;
+  height:30px;
+  line-height:30px;
+  @include border-top-radius(5px);
+  width:70px;
+  cursor:pointer;
+  text-align:center;
+  border-left:1px solid #858585;
+  border-right:1px solid #858585;
+  // text-shadow: #15181b 0 1px 0;
+  //@include sassy-button-gradient("matte", #3D5F7F, #63727F);
+  //@extend .smallBtn;
+ 
+  color:lighten($toolbar1, 60%);
+  font-size:14px;
+
+  //@include background(linear-gradient(#3A3A3A,#232323));
+  &:hover{
+    //@include background(linear-gradient(#3A3A3A,#232323));
+    @include background(linear-gradient(lighten(#3A3A3A, 20%),lighten(#232323, 10%)));
+    
+    //@include background(linear-gradient(#C9C9C9,#858585));
   }
+
 }
 .grpForm{
   color:black;
@@ -65,17 +104,29 @@
   @include clearfix;
   position:absolute;
   right:105px;
-  top:5px;
+  top:3px;
   z-index:10;
   input{
     float:left;
-    @include border-top-left-radius(2px);
+    @include border-radius(8px);
     @include border-bottom-left-radius(2px);
-    border: none;
+    @include background(linear-gradient(#3c3c3c, #222));
+    color:#EBECEC;
+    border: 2px solid lighten(#4A4A4A, 10%);
     height:24px;
   }
+  .fa-save{
+    color:lighten(#5cb85c, 20%);
+  }
+  .fa-trash-o{
+    color:$redbtn1;
+  }
   span{
-    @include sassy-button-structure(2px, 16px, 0em .7em); display:block; text-align:center; 
+    //@include sassy-button-structure(2px, 16px, 0em .7em); display:block; text-align:center; 
+    @include background(linear-gradient(lighten(#3A3A3A, 20%),lighten(#232323, 10%)));
+    height:26px;
+    width:40px;
+    border:1px solid lighten(#3A3A3A, 20%);
     float:left;
     margin:0 1px;
   }

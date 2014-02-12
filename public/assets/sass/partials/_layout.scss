@@ -38,7 +38,6 @@ p{
 		color:darken(#3CACE2, 30%);
 		&:hover{
 			//font-weight:bold;
-			text-decoration:underline;
 			color:$bluebtn1;
 			//@include background-image(linear-gradient(left, #9DD1E9, transparentize($bluebtn1, .5)));
 			 //@include background-image(linear-gradient(left top, #D8E7EF, #dddddd));
@@ -65,7 +64,9 @@ p{
 		@include span-columns(2 omega, 16);
 	}
 
-	@include background(linear-gradient(color-stops(transparentize($bluebtn1, .8), transparentize($bluebtn2, .9))));
+	background:lighten(#3A3A3A, 65%)
+	//@include background(linear-gradient(color-stops(transparentize($bluebtn1, .8), transparentize($bluebtn2, .9))));
+
 }
 
 
