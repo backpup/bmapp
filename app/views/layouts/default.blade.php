@@ -10,24 +10,25 @@
 <body>
 	<header id="mainHeader">
 		<div class="container">
-			<div class="loginForm-header">
-				@if(!Auth::check())
-					{{ Form::open(array('url'=>'/')) }}
-
-						{{ Form::label('username', 'Username') }}
-						{{ Form::text('username', '', array('tabindex'=>10)) }}
-						{{ Form::label('password', 'Password') }}
-						{{ Form::password('password', '', array('tabindex'=>20)) }}
-						
-						{{ Form::submit('Login', array('class'=>'button')) }}
-						{{ HTML::link('register', 'Register', array('class'=>'button red')) }}
-						<a href="#" class="button blue">Hello<i class ="fa fa-square"></i><i class ="fa fa-circle"></i></a>
-					{{ Form::close() }}
-				@else
-					<p>Logged in as {{ Auth::user()->username }} {{ HTML::link('logout', 'Logout') }}</p>
-				@endif
+			<a href="/">
+			<div class="intro">
+				<h1>bookmark</h1>
+				<p class="short-hook">Your personal bookmark repository to go</p>
+			</div>
+			</a>
+		@if(Auth::check())
+			<div class="searchIcon" id="searchIconId">
+				<i class="fa fa-search fa-lg"></i>
+			</div>
+			<div class="searchForm" id="searchForm">
+				{{ Form::open(array('url'=>'search')) }}
+					<input type="text" name="search" id="search" /><br />
+					<input type="submit" value = "search" />
+				{{ Form::close() }}
 			</div>
 		</div>
+
+		@endif
 	</header>
 	<div id = "msg">
 		@if(Session::has('msg'))

@@ -92,7 +92,7 @@
 </div>
 </div><!--bookmarks-body end-->
 <div class="paginate">
-{{ $bookmarks->links() }}
+
 </div>
 </div><!--bookmarksView end-->
 

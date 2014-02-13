@@ -67,6 +67,70 @@ ratingWidget.prototype.rateOut=function()
 /**************************************************************/
 
 
+/* *******************The Validator************************ */
+
+var Validator =function(array, isGroup)
+{
+	this.msgExist = false;
+	this.isValid = true;
+	var ct = 0;
+	(isGroup)? ct=1: ct=2;
+	for(var i = 0; i<ct; i++)
+	{
+		switch(i)
+		{
+			case 0:
+			{
+				if(array[0].length<1)
+				{
+					this.displayError('Title is required.');
+					this.isValid = false;
+					return;
+				}else if (/^[a-zA-Z _0-9-]+$/.test(array[0])==false)
+				{
+					this.displayError('Only alphabets, numbers and dashes are valid');
+					this.isValid = false;
+					return;
+				}
+				break;
+			}
+			case 1:
+			{
+				if(array[1].length<1)
+				{
+					this.displayError('Url is required.');
+					this.isValid=false;
+					return;
+				}
+				break;
+			}
+		}
+	}
+}
+
+Validator.prototype.displayError = function(errorMsg){
+	var that = this;
+	var infoDiv = $('#header-info');
+	if(this.msgExist == true)
+	{
+		clearTimeout(this.timeOut);
+		infoDiv.html('');
+
+
+	}else{
+		infoDiv.html('<i class="fa fa-ban fa-lg"></i> '+errorMsg);
+		that.msgExist = true;
+		this.timeOut = setTimeout(function(){
+			that.displayError();
+		}, 3000);
+	}
+
+}
+
+
+
+/* **********************validator-end********************* */
+
 
 var BookmarkGo = function(row)
 {
@@ -217,8 +281,17 @@ BookmarkGo.prototype.postEdit = function()
 {
 	var that = this;
  	var inputs = that.collectedInputs;
- 	var bmId = this.currentRow.attr('id').split("_")[1];
+ 
+ 	var validator = new Validator(inputs);
+ 	if(!validator.isValid)
+ 	{
+ 	
+ 		that.cancelEdit();
+ 		//that.currentRow.children().last().remove();
+ 		return;
+ 	}
 
+ 	var bmId = this.currentRow.attr('id').split("_")[1];
  	var request = $.ajax({
  		type:'POST',
  		data:{id:bmId, title:inputs[0], link:inputs[1], group_id:inputs[3], stars:inputs[2]},
@@ -574,7 +647,16 @@ ToolBar.prototype.postSaveRowInput=function()
 {
 	var that = this;
 	var inputs = that.collectedInputArray;
-
+	var validator = new Validator(inputs);
+	if(!validator.isValid)
+	{
+		
+		this.newRowToSave.remove();
+		this.row.remove();
+		this.addInputBar();
+		that.toolBarChecker=true;
+		return;
+	}
 	var request=$.ajax({
 		type:'POST',
 		data:{title:inputs[0], link:inputs[1], stars:inputs[2], group_id:inputs[3]},
@@ -586,6 +668,7 @@ ToolBar.prototype.postSaveRowInput=function()
 		that.row.replaceWith(that.newRowToSave);
 		that.toolBarChecker=true;
 		var newRow = new BookmarkGo(that.newRowToSave);
+		renumberRows();
 	})
 
 };
@@ -628,6 +711,29 @@ var prepRows = function(){
 	return count;
 };
 
+/* miscellaneous functions  */
+
+$("#searchIconId").click(function(){
+	var searchForm = $("#searchForm");
+	//$("#search").val('');
+	searchForm.toggleClass('expandwidth');
+
+	// searchForm.find('input:submit').click(function(){
+		
+	// });
+});
+
+var renumberRows = function(){
+	$.each($('#bookmarks-body').children('.row'), function(i, val){
+		var row = $(this);
+		var count = i+1;
+		row.find('.num').text(count+".");
+	});
+	
+};
+
+
+/* misc end */
 
 $(document).ready(function(){
 	
@@ -636,7 +742,7 @@ $(document).ready(function(){
 
 	if(init==0)
 		$("#bmAddBtn").trigger("click");
-	
+
 	var check = new GroupManager();
 
 });

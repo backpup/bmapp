@@ -2,7 +2,7 @@
 
 @section('content')
 
-<section id="register-form">
+<section id="registerPage">
 	<h1>Register</h1>
 	@if($errors->has())
 	<p>Please correct the following errors:</p>
@@ -14,25 +14,23 @@
 		</ul>
 	@endif
 
-	{{ Form::open(array('url'=>'register')) }}
+	{{ Form::open(array('url'=>'register', 'id'=>'registerForm')) }}
 		<p>
-			{{ Form::label('username', 'Username') }}<br />
-			{{ Form::text('username', Input::old('username')) }}
+		
+			{{ Form::text('username', Input::old('username'), array('placeholder'=>'username')) }}
 		</p>
 		<p>
-			{{ Form::label('password', 'Password') }}<br />
-			{{ Form::password('password') }}
+		
+			<input type="password" name="password" placeholder="password" />
 		</p>
 		<p>
-			{{ Form::label('password_confirmation', 'Confirm Password') }}<br />
-			{{ Form::password('password_confirmation') }}
+			<input type="password" name="password_confirmation" placeholder="confirm password" />
 		</p>
 		<p>
-			{{ Form::label('email', 'Email') }}<br />
-			{{ Form:: email('email', Input::old('email')) }}
+			{{ Form:: email('email', Input::old('email'), array('placeholder'=>'email')) }}
 		</p>
 		<p>
-			{{ Form::submit('Register') }}
+			{{ Form::submit('Register', array('class'=>'button')) }}
 		</p>
 
 	{{ Form::close() }}

@@ -15,8 +15,23 @@ class Bookmark extends Basemodel{
 	{
 		if(Auth::check())
 			return static::where('user_id', '=', Auth::user()->id)
-			->orderBy('created_at', 'desc')
-			->get();
+			->orderBy('created_at', 'desc')->paginate(60);
+	}
+
+	public static function yourBookmarksByGroup($id)
+	{
+		if(Auth::check())
+			return static::where('user_id', '=', Auth::user()->id)
+					->where('group_id', '=', $id)
+					->orderBy('created_at', 'desc')->paginate(60);
+	}
+
+	public static function search($keyword)
+	{
+		if(Auth::check())
+			return static::where('user_id', '=', Auth::user()->id)
+						->where('title', 'LIKE', '%'.$keyword.'%')
+						->get();
 	}
 	
 
@@ -29,6 +44,8 @@ class Bookmark extends Basemodel{
 	{
 		return $this->belongsTo('User');
 	}
+
+
 }
 
 

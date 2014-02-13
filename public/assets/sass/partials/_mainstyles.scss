@@ -34,8 +34,9 @@
 
 #bookmark-adder{
 	height:10px;
-	background:#5A6873;
-	border:1px solid darken($greenbtn1, 20%);
+	//background:#5A6873;
+  @include background(linear-gradient(#202020, #3E3E3E));
+	border:1px solid darken(#858585, 20%);
 }
 .smallBtn { @include sassy-button-structure(5px, 12px, 0.5em 0.5em);   }
 #bmAddBtn{
@@ -64,7 +65,7 @@
     //@include background(linear-gradient(#C9C9C9,#858585));
   }
   .fa-link{
-    color:#E5E6D6;
+    color:lighten(#26A3DF, 15%);
 
   }
 }
@@ -130,4 +131,15 @@
     float:left;
     margin:0 1px;
   }
+}
+#header-info{
+  color:#E4E5E5;
+  line-height:30px;
+  padding-left:10px;
+  //width:0;
+  overflow:hidden;
+  .fa-ban{
+    color:$redbtn1;
+  }
+
 }

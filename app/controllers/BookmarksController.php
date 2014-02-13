@@ -56,6 +56,8 @@ class BookmarksController extends BaseController{
 		echo $insertedId;
 	}
 
+
+
 }
 
 

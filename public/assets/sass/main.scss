@@ -57,4 +57,166 @@ input[disabled]{
 .appInfo{
 	display:none;
 }
+.pageError{
+	margin:0 auto;
+	width:400px;
+}
+.paginate{
+	text-align:center;
+}
+.pagination{
+	color:#5E6C89;
+	list-style:none;
 
+	li{
+		color:#5E6C89;
+		display:inline;
+		padding:0 .2em;
+		
+	}
+	li a{
+		color:$bluebtn1;
+	}
+}
+.loginPrompt{
+	height:800px; overflow:hidden; position:relative;
+	text-align:center;
+	//@include background(radial-gradient(40px 40px, cyan 50px, dodgerblue 30px))
+	a{
+		color:$bluebtn1;
+		text-decoration:underline;
+	}
+	
+
+}
+.loginForm{
+	
+	top:20%;
+	left:35%;
+	position:absolute;
+	text-align:center;
+	input[type="text"], input[type="password"]{
+		border: solid 1px #E6E7E7;
+		width:250px;
+		display:block;
+		font-size:.9em;
+		padding:.3em .3em;
+		color:gray;
+		margin-bottom:20px;
+		@include box-shadow(1px 0px 4px -3px darken(#E6E7E7, 50%));
+	 }
+	input[type="submit"]{
+		//@include sassy-button-gradient("flat", lighten(#292929, 30%), $bluebtn2, white, inset);
+		@extend .green;
+	}
+	//vertical-align:center;
+}
+.cred{
+	color:$greenbtn1;
+	font-weight:bold;
+	padding:0 .1em;
+}
+#registerPage{
+	text-align:center;
+	h1{
+		color:darken($orange, 10%);
+	}
+	input[type="text"], input[type="password"], input[type="email"]{
+		width:250px;
+		margin-bottom:10px;
+		border: solid 1px #E6E7E7;
+		width:250px;
+		//display:block;
+		font-size:.9em;
+		padding:.3em .3em;
+		color:gray;
+		margin-bottom:20px;
+		@include box-shadow(1px 0px 4px -3px darken(#E6E7E7, 50%));
+	}
+	input[type="submit"]{
+		@extend .blue;
+	}
+}
+.mainHeader{
+	.container{
+		@include clearfix;
+	}
+}
+.intro{
+	h1{
+		margin:0;
+		color:#D4D5D6;
+	}
+	p{
+		color:#D4D5D6;
+		font-size:.9em;
+		margin-top:-10px;
+	}
+	border-right:1px solid darken(#D4D5D6, 60%);
+	width:265px;
+	float:left;
+	//@include background(linear-gradient(top left, white, green));
+}
+.searchIcon{
+	//background:white;
+	float:left;
+	height:59px;
+	font-size:18px;
+	// float:left;
+	color:darken($orange, 10%);
+	position:relative;
+	width:50px;
+
+	border-right:1px solid darken(#D4D5D6, 60%);
+	cursor:pointer;
+	// background:white;
+	&:hover{
+		  @include background(linear-gradient(darken(#3c3c3c, 5%), darken(#222, 5%)));
+
+	}
+	.fa-search{
+		position:absolute;
+		top:30px;
+		left:15px;
+	}
+}
+.searchForm{
+	background:#1f1f1f;
+	color:lighten(#8a8989, 15%);
+	overflow:hidden;
+	width:0px;
+	max-width:0px;
+	height:59px;
+	float:left;
+	font-size:.9em;
+	@include transition(all 0.3s ease-in);
+	input[type="text"]{
+		width:120px;
+		position:relative;
+		outline:none;
+		left:15px;
+		top:10px;
+		padding-left:5px;
+		background:#1f1f1f;
+		border: 2px solid #4D4D4D;
+		@include border-radius(15px);
+		&:focus{
+			border: 2px solid lighten(#8a8989, 10%);
+		}
+	}
+	input[type="submit"]{
+		border:none;
+
+		text-decoration:underline;
+		@include border-radius(4px);
+		background:#1f1f1f;
+		color:#8a8989;
+		margin-left:85px;
+		margin-top:10px;
+	}
+}
+
+.expandwidth{
+	max-width:150px;
+	width:150px;
+}

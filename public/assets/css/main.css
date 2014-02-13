@@ -1,4 +1,3 @@
-@import url(http://fonts.googleapis.com/css?family=Raleway:400);
 @import url(http://fonts.googleapis.com/css?family=Droid+Sans);
 /*! normalize.css v3.0.0 | MIT License | git.io/normalize */
 /**
@@ -392,12 +391,6 @@ table {
 td,
 th {
   padding: 0;
-}
-
-@font-face {
-  font-family: "OpenSans";
-  src: url('../fonts/OpenSans-Regular-webfont.eot');
-  src: url('../fonts/OpenSans-Regular-webfont.eot?#iefix') format('eot'), url('../fonts/OpenSans-Regular-webfont.woff') format('woff'), url('../fonts/OpenSans-Regular-webfont.ttf') format('truetype'), url('../fonts/OpenSans-Regular-webfont.svg') format('svg');
 }
 
 /*!
@@ -2173,7 +2166,7 @@ p {
   float: left;
   margin-right: 10px;
   display: inline;
-  background: #e0e0e0;
+  background: #d5edd5;
 }
 .row .num {
   width: 50px;
@@ -2182,6 +2175,8 @@ p {
   display: inline;
   text-align: center;
   background: #A4B7CB;
+  color: white;
+  text-shadow: 0 1px 0 gray;
   border: 1px solid #d9d9d9;
   -moz-border-radius-bottomleft: 5px;
   -webkit-border-bottom-left-radius: 5px;
@@ -2239,6 +2234,9 @@ p {
   *margin-left: -10px;
   display: inline;
 }
+.row:nth-child(2n) {
+  background: #f1f9f1;
+}
 
 #mainHeader {
   height: 60px;
@@ -2270,8 +2268,12 @@ p {
 
 #bookmark-adder {
   height: 10px;
-  background: #5A6873;
-  border: 1px solid #357935;
+  background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #202020), color-stop(100%, #3e3e3e));
+  background: -webkit-linear-gradient(#202020, #3e3e3e);
+  background: -moz-linear-gradient(#202020, #3e3e3e);
+  background: -o-linear-gradient(#202020, #3e3e3e);
+  background: linear-gradient(#202020, #3e3e3e);
+  border: 1px solid #525252;
 }
 
 .smallBtn {
@@ -2316,7 +2318,7 @@ p {
   background: linear-gradient(#6d6d6d, #3d3d3d);
 }
 #bmAddBtn .fa-link {
-  color: #E5E6D6;
+  color: #69bfe9;
 }
 
 #grpAddBtn {
@@ -2395,6 +2397,16 @@ p {
   margin: 0 1px;
 }
 
+#header-info {
+  color: #E4E5E5;
+  line-height: 30px;
+  padding-left: 10px;
+  overflow: hidden;
+}
+#header-info .fa-ban {
+  color: #ee5e3d;
+}
+
 body {
   font-family: Droid Sans;
   font-size: 15px;
@@ -2459,7 +2471,7 @@ a {
   box-shadow: none;
 }
 
-.blue {
+.blue, #registerPage input[type="submit"] {
   *zoom: 1;
   filter: progid:DXImageTransform.Microsoft.gradient(gradientType=0, startColorstr='#FF3CACE2', endColorstr='#FF1874A0');
   background-color: #3cace2;
@@ -2467,16 +2479,16 @@ a {
   color: white;
   text-shadow: #15648a 0 -1px 0;
 }
-.blue:hover {
+.blue:hover, #registerPage input[type="submit"]:hover {
   text-decoration: none;
 }
-.blue:hover {
+.blue:hover, #registerPage input[type="submit"]:hover {
   background-color: #26a3df;
 }
-.blue:active {
+.blue:active, #registerPage input[type="submit"]:active {
   background-color: #209ad5;
 }
-.blue.disabled, .blue[disabled] {
+.blue.disabled, #registerPage input.disabled[type="submit"], .blue[disabled], #registerPage input[disabled][type="submit"] {
   filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=60);
   opacity: 0.6;
   background: false;
@@ -2540,7 +2552,7 @@ a {
   box-shadow: none;
 }
 
-.green {
+.green, .loginForm input[type="submit"] {
   *zoom: 1;
   filter: progid:DXImageTransform.Microsoft.gradient(gradientType=0, startColorstr='#FF5CB85C', endColorstr='#FF357935');
   background-color: #5cb85c;
@@ -2548,16 +2560,16 @@ a {
   color: white;
   text-shadow: #2d672d 0 -1px 0;
 }
-.green:hover {
+.green:hover, .loginForm input[type="submit"]:hover {
   text-decoration: none;
 }
-.green:hover {
+.green:hover, .loginForm input[type="submit"]:hover {
   background-color: #4cae4c;
 }
-.green:active {
+.green:active, .loginForm input[type="submit"]:active {
   background-color: #47a447;
 }
-.green.disabled, .green[disabled] {
+.green.disabled, .loginForm input.disabled[type="submit"], .green[disabled], .loginForm input[disabled][type="submit"] {
   filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=60);
   opacity: 0.6;
   background: false;
@@ -2600,4 +2612,176 @@ input[disabled] {
 
 .appInfo {
   display: none;
+}
+
+.pageError {
+  margin: 0 auto;
+  width: 400px;
+}
+
+.paginate {
+  text-align: center;
+}
+
+.pagination {
+  color: #5E6C89;
+  list-style: none;
+}
+.pagination li {
+  color: #5E6C89;
+  display: inline;
+  padding: 0 .2em;
+}
+.pagination li a {
+  color: #3cace2;
+}
+
+.loginPrompt {
+  height: 800px;
+  overflow: hidden;
+  position: relative;
+  text-align: center;
+}
+.loginPrompt a {
+  color: #3cace2;
+  text-decoration: underline;
+}
+
+.loginForm {
+  top: 20%;
+  left: 35%;
+  position: absolute;
+  text-align: center;
+}
+.loginForm input[type="text"], .loginForm input[type="password"] {
+  border: solid 1px #E6E7E7;
+  width: 250px;
+  display: block;
+  font-size: .9em;
+  padding: .3em .3em;
+  color: gray;
+  margin-bottom: 20px;
+  -webkit-box-shadow: 1px 0px 4px -3px #656969;
+  -moz-box-shadow: 1px 0px 4px -3px #656969;
+  box-shadow: 1px 0px 4px -3px #656969;
+}
+
+.cred {
+  color: #5cb85c;
+  font-weight: bold;
+  padding: 0 .1em;
+}
+
+#registerPage {
+  text-align: center;
+}
+#registerPage h1 {
+  color: #ef9805;
+}
+#registerPage input[type="text"], #registerPage input[type="password"], #registerPage input[type="email"] {
+  width: 250px;
+  margin-bottom: 10px;
+  border: solid 1px #E6E7E7;
+  width: 250px;
+  font-size: .9em;
+  padding: .3em .3em;
+  color: gray;
+  margin-bottom: 20px;
+  -webkit-box-shadow: 1px 0px 4px -3px #656969;
+  -moz-box-shadow: 1px 0px 4px -3px #656969;
+  box-shadow: 1px 0px 4px -3px #656969;
+}
+
+.mainHeader .container {
+  overflow: hidden;
+  *zoom: 1;
+}
+
+.intro {
+  border-right: 1px solid #3b3c3d;
+  width: 265px;
+  float: left;
+}
+.intro h1 {
+  margin: 0;
+  color: #D4D5D6;
+}
+.intro p {
+  color: #D4D5D6;
+  font-size: .9em;
+  margin-top: -10px;
+}
+
+.searchIcon {
+  float: left;
+  height: 59px;
+  font-size: 18px;
+  color: #ef9805;
+  position: relative;
+  width: 50px;
+  border-right: 1px solid #3b3c3d;
+  cursor: pointer;
+}
+.searchIcon:hover {
+  background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #2f2f2f), color-stop(100%, #151515));
+  background: -webkit-linear-gradient(#2f2f2f, #151515);
+  background: -moz-linear-gradient(#2f2f2f, #151515);
+  background: -o-linear-gradient(#2f2f2f, #151515);
+  background: linear-gradient(#2f2f2f, #151515);
+}
+.searchIcon .fa-search {
+  position: absolute;
+  top: 30px;
+  left: 15px;
+}
+
+.searchForm {
+  background: #1f1f1f;
+  color: #b0afaf;
+  overflow: hidden;
+  width: 0px;
+  max-width: 0px;
+  height: 59px;
+  float: left;
+  font-size: .9em;
+  -webkit-transition: all 0.3s ease-in;
+  -moz-transition: all 0.3s ease-in;
+  -o-transition: all 0.3s ease-in;
+  transition: all 0.3s ease-in;
+}
+.searchForm input[type="text"] {
+  width: 120px;
+  position: relative;
+  outline: none;
+  left: 15px;
+  top: 10px;
+  padding-left: 5px;
+  background: #1f1f1f;
+  border: 2px solid #4D4D4D;
+  -webkit-border-radius: 15px;
+  -moz-border-radius: 15px;
+  -ms-border-radius: 15px;
+  -o-border-radius: 15px;
+  border-radius: 15px;
+}
+.searchForm input[type="text"]:focus {
+  border: 2px solid #a3a3a3;
+}
+.searchForm input[type="submit"] {
+  border: none;
+  text-decoration: underline;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  -ms-border-radius: 4px;
+  -o-border-radius: 4px;
+  border-radius: 4px;
+  background: #1f1f1f;
+  color: #8a8989;
+  margin-left: 85px;
+  margin-top: 10px;
+}
+
+.expandwidth {
+  max-width: 150px;
+  width: 150px;
 }

@@ -5,15 +5,33 @@ class Userscontroller extends BaseController{
 
 	public function __construct()
 	{
-		$this->beforeFilter('csrf', array('only'=>array('postCreate', 'postLogin')));
+		$this->beforeFilter('csrf', array('only'=>array('postCreate', 'postLogin', 'postSearch')));
 	}
 
 	public function getIndex()
 	{
 		return View::make('home.index')
-			->with('title', 'Bookmark Now Yoo')
+			->with('title', 'Your Bookmarks')
 			->with('bookmarks', Bookmark::yourBookmarks())
 			->with('groups', Group::yourGroups());
+	}
+
+	public function getResults($keyword)
+	{
+		return View::make('home.results')
+			->with('title', 'Your Search Results')
+			->with('bookmarks', Bookmark::search($keyword))
+			->with('groups', Group::yourGroups());
+	}
+
+	public function postSearch()
+	{
+		$keyword = Input::get('search');
+		if(empty($keyword))
+		{
+			return Redirect::route('home');
+		}
+		return Redirect::to('results/'.$keyword);
 	}
 
 	public function postCreate()
@@ -55,8 +73,7 @@ class Userscontroller extends BaseController{
 		);
 		if(Auth::attempt($user))
 		{
-			return Redirect::route('home')
-				->with('msg', 'You are now logged in');
+			return Redirect::route('home');
 
 		}else{
 			return Redirect::route('home')
@@ -70,7 +87,7 @@ class Userscontroller extends BaseController{
 		if(Auth::check())
 		{
 			Auth::logout();
-			return Redirect::route('home')->with('msg', 'You are now logged out');
+			return Redirect::route('home');
 		}else{
 			return Redirect::route('home');
 		}

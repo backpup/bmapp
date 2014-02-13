@@ -24,6 +24,8 @@ p{
 		@include span-columns(1, 16);
 		text-align:center;
 		background:#A4B7CB;
+		color:white;
+		text-shadow: 0 1px 0 gray;
 		border: 1px solid lighten(gray, 35%);
 		@include border-bottom-left-radius(5px);
 		height:23px;
@@ -64,9 +66,12 @@ p{
 		@include span-columns(2 omega, 16);
 	}
 
-	background:lighten(#3A3A3A, 65%)
+	//background:lighten(#3A3A3A, 65%)
 	//@include background(linear-gradient(color-stops(transparentize($bluebtn1, .8), transparentize($bluebtn2, .9))));
-
+	background:lighten(#47A447, 42%);
+	&:nth-child(2n){
+		background:(lighten(#47a447, 50%));
+	}
 }
 
 
