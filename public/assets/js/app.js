@@ -399,7 +399,7 @@ BookmarkGo.prototype.bmDelete=function()
 
 	}).done(function(){
 		that.currentRow.remove();
-
+		renumberRows();
 	}).fail(function(){
 		that.cancelEdit();
 	})
@@ -668,6 +668,9 @@ ToolBar.prototype.postSaveRowInput=function()
 		that.row.replaceWith(that.newRowToSave);
 		that.toolBarChecker=true;
 		var newRow = new BookmarkGo(that.newRowToSave);
+		var rowM = new RowManager();
+		var d = true;
+		rowM.propogateChange(that.newRowToSave, d);
 		renumberRows();
 	})
 
@@ -711,6 +714,76 @@ var prepRows = function(){
 	return count;
 };
 
+/* Functionality to manage existing rows */
+/* will have current row list */
+/* one global variable, oh well */
+var savedRowList = $("#bookmarks-body").children(".row");
+
+var RowManager = function()
+{
+	this.filteredList = new Array();
+	this.init();
+}
+
+RowManager.prototype.init = function(){
+	var select = $('#groupSelect');
+	$.each($('.bookmarkGroups'), function(i, val){
+		var groupName = $(val).text();
+		$('<option>').attr('val', groupName).text(groupName)
+			.appendTo(select);
+	});
+}
+RowManager.prototype.filter=function(hello)
+{
+	var that = this;
+	this.filteredList.length=0;
+	$.each(savedRowList, function(i, val){
+		var id = $(val).attr('id');
+		if($(val).find('.group').text().toUpperCase()==hello.toUpperCase())
+		{
+			that.filteredList.push($(val));
+		}
+		$('#'+id).remove();
+	});
+	console.log(savedRowList);
+
+
+	var rowBody = $('#bookmarks-body');
+
+	if(that.filteredList.length>0)
+	{
+		for(var i =0; i<that.filteredList.length; i++)
+		{
+			var row = that.filteredList[i];
+			rowBody.append($(row));
+		}
+	}	
+}
+
+RowManager.prototype.propogateChange=function(row, isNewRow)
+{
+	var id = row.attr('id');
+	var newRow = new Array();
+
+	if(isNewRow==true)
+	{
+		for(var i = 0; i < savedRowList.length+1; i++)
+		{
+			if(i==0)
+			{
+				newRow.push(row[0]);
+			}
+			else{
+				newRow.push(savedRowList[i-1]);
+			}
+		}
+	savedRowList = $(newRow);
+	}
+}
+
+
+
+
 /* miscellaneous functions  */
 
 $("#searchIconId").click(function(){
@@ -721,6 +794,16 @@ $("#searchIconId").click(function(){
 	// searchForm.find('input:submit').click(function(){
 		
 	// });
+});
+
+var rowMg = new RowManager();
+
+$("#groupSelect").on('change', function(){
+	var rowName = $(this).find('option:selected').val();
+	rowMg.filter(rowName);
+});
+$("#filterIconId").click(function(){
+	$('#filterBox').toggleClass('expandFilter');
 });
 
 var renumberRows = function(){

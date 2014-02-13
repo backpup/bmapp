@@ -2712,7 +2712,7 @@ input[disabled] {
   margin-top: -10px;
 }
 
-.searchIcon {
+.headerIcon {
   float: left;
   height: 59px;
   font-size: 18px;
@@ -2722,17 +2722,20 @@ input[disabled] {
   border-right: 1px solid #3b3c3d;
   cursor: pointer;
 }
-.searchIcon:hover {
+.headerIcon:hover {
   background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #2f2f2f), color-stop(100%, #151515));
   background: -webkit-linear-gradient(#2f2f2f, #151515);
   background: -moz-linear-gradient(#2f2f2f, #151515);
   background: -o-linear-gradient(#2f2f2f, #151515);
   background: linear-gradient(#2f2f2f, #151515);
 }
-.searchIcon .fa-search {
+.headerIcon .fa {
   position: absolute;
   top: 30px;
   left: 15px;
+}
+.headerIcon .fa-filter {
+  color: #c254bb;
 }
 
 .searchForm {
@@ -2781,7 +2784,41 @@ input[disabled] {
   margin-top: 10px;
 }
 
+.filterBox {
+  background: #1f1f1f;
+  color: #b0afaf;
+  overflow: hidden;
+  width: 0px;
+  height: 59px;
+  float: left;
+  font-size: .9em;
+  text-align: center;
+  -webkit-transition: all 0.3s ease-in;
+  -moz-transition: all 0.3s ease-in;
+  -o-transition: all 0.3s ease-in;
+  transition: all 0.3s ease-in;
+}
+.filterBox select {
+  margin-top: 10px;
+  background: transparent;
+  border: 2px solid #4D4D4D;
+  width: 110px;
+}
+.filterBox a {
+  margin-top: 2px;
+  display: block;
+  color: #8a8989;
+}
+.filterBox a:hover {
+  color: #bdbcbc;
+  font-weight: bold;
+}
+
 .expandwidth {
   max-width: 150px;
   width: 150px;
+}
+
+.expandFilter {
+  width: 130px;
 }

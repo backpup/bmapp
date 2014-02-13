@@ -157,7 +157,7 @@ input[disabled]{
 	float:left;
 	//@include background(linear-gradient(top left, white, green));
 }
-.searchIcon{
+.headerIcon{
 	//background:white;
 	float:left;
 	height:59px;
@@ -174,10 +174,13 @@ input[disabled]{
 		  @include background(linear-gradient(darken(#3c3c3c, 5%), darken(#222, 5%)));
 
 	}
-	.fa-search{
+	.fa{
 		position:absolute;
 		top:30px;
 		left:15px;
+	}
+	.fa-filter{
+		color:$pink;
 	}
 }
 .searchForm{
@@ -216,7 +219,43 @@ input[disabled]{
 	}
 }
 
+.filterBox{
+	background:#1f1f1f;
+	color:lighten(#8a8989, 15%);
+	overflow:hidden;
+	//width:130px;
+	width:0px;
+	height:59px;
+	float:left;
+	font-size:.9em;
+	text-align:center;
+	@include transition(all 0.3s ease-in);
+	
+	select{
+		margin-top:10px;
+		background:transparent;
+		border: 2px solid #4D4D4D;
+		width:110px;
+
+	}
+	option{
+
+	}
+	a{
+		margin-top:2px;
+		display:block;
+		color:#8a8989;
+		&:hover{
+			color:lighten(#8a8989, 20%);
+			font-weight:bold;
+		}
+	}
+}
+
 .expandwidth{
 	max-width:150px;
 	width:150px;
+}
+.expandFilter{
+	width:130px;
 }

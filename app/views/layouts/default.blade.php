@@ -17,7 +17,7 @@
 			</div>
 			</a>
 		@if(Auth::check())
-			<div class="searchIcon" id="searchIconId">
+			<div class="headerIcon" id="searchIconId">
 				<i class="fa fa-search fa-lg"></i>
 			</div>
 			<div class="searchForm" id="searchForm">
@@ -25,6 +25,17 @@
 					<input type="text" name="search" id="search" /><br />
 					<input type="submit" value = "search" />
 				{{ Form::close() }}
+			</div>
+			<div class="headerIcon" id="filterIconId">
+				<i class="fa fa-filter fa-lg"></i>
+			</div>
+			<div class="filterBox" id="filterBox">
+			<label>
+				<select name="groupSelect" id="groupSelect">
+					<option selected>Group</option>
+				</select>
+			<label>
+					<a href="/">Filter Off</a>
 			</div>
 		</div>
 
