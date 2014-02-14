@@ -30,16 +30,20 @@
 				<i class="fa fa-filter fa-lg"></i>
 			</div>
 			<div class="filterBox" id="filterBox">
-			<label>
+			
 				<select name="groupSelect" id="groupSelect">
 					<option selected>Group</option>
 				</select>
-			<label>
+		
 					<a href="/">Filter Off</a>
 			</div>
+			<a href="/logout" class="logoutLink">
+				<i class="fa fa-sign-out"></i>Logout
+			</a>
+			@endif
 		</div>
 
-		@endif
+		
 	</header>
 	<div id = "msg">
 		@if(Session::has('msg'))

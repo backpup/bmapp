@@ -259,3 +259,27 @@ input[disabled]{
 .expandFilter{
 	width:130px;
 }
+
+.logoutLink{
+	color:white;
+	display:block;
+	color:lighten(#8a8989, 15%);
+	font-size:12px;
+	width:130px;
+	height:59px;
+	float:right;
+	text-align:right;
+	margin-right:40px;
+	&:hover{
+			color:#35cec1;
+		}
+	.fa-sign-out{
+		display:block;
+		margin-right:10px;
+		font-size:22px;
+		margin-top:10px;
+		margin-bottom:-2px;
+		//color:darken(#35cec1, 10%);
+
+	}
+}
