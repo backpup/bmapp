@@ -152,11 +152,33 @@ input[disabled]{
 		font-size:.9em;
 		margin-top:-10px;
 	}
-	border-right:1px solid darken(#D4D5D6, 60%);
+	//border-right:1px solid darken(#D4D5D6, 60%);
 	width:265px;
 	float:left;
+	position:relative;
+
 	//@include background(linear-gradient(top left, white, green));
 }
+#star1{
+	position:absolute;
+	top:5px;
+	left:150px;
+	font-size:30px;
+	opacity:.6;
+	
+	color:#35CEC1;
+	&:hover{
+		opacity:1;
+	}
+}
+#star2{
+	@extend #star1;
+	left:158px;
+	top:7px;
+	font-size:28px;
+	opacity:.8;
+}
+
 .headerIcon{
 	//background:white;
 	float:left;

@@ -2698,9 +2698,9 @@ input[disabled] {
 }
 
 .intro {
-  border-right: 1px solid #3b3c3d;
   width: 265px;
   float: left;
+  position: relative;
 }
 .intro h1 {
   margin: 0;
@@ -2710,6 +2710,25 @@ input[disabled] {
   color: #D4D5D6;
   font-size: .9em;
   margin-top: -10px;
+}
+
+#star1, #star2 {
+  position: absolute;
+  top: 5px;
+  left: 150px;
+  font-size: 30px;
+  opacity: .6;
+  color: #35CEC1;
+}
+#star1:hover, #star2:hover {
+  opacity: 1;
+}
+
+#star2 {
+  left: 158px;
+  top: 7px;
+  font-size: 28px;
+  opacity: .8;
 }
 
 .headerIcon {
