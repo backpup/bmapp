@@ -15,8 +15,7 @@
 				<h1>bookmark</h1>
 				<p class="short-hook">Your personal bookmark repository to go</p>
 				<div class="headerLogo">
-					<i class="fa fa-star-o" id="star1"></i>
-					<i class="fa fa-star" id="star2"></i>
+					<i class="fa fa-star-o"></i>
 				</div>
 			</div>
 			</a>

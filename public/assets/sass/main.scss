@@ -156,28 +156,23 @@ input[disabled]{
 	width:265px;
 	float:left;
 	position:relative;
-
-	//@include background(linear-gradient(top left, white, green));
-}
-#star1{
-	position:absolute;
-	top:5px;
-	left:150px;
-	font-size:30px;
-	opacity:.6;
-	
-	color:#35CEC1;
-	&:hover{
-		opacity:1;
+	.headerLogo{
+		position:absolute;
+		top:0px;
+		left:150px;
+		font-size:30px;
+		opacity:.6;
+		
+		color:#35CEC1;
+		&:hover{
+			opacity:1;
+		}
 	}
 }
-#star2{
-	@extend #star1;
-	left:158px;
-	top:7px;
-	font-size:28px;
-	opacity:.8;
-}
+
+	//@include background(linear-gradient(top left, white, green));
+
+
 
 .headerIcon{
 	//background:white;

@@ -816,13 +816,13 @@ var renumberRows = function(){
 };
 
 
-// (function(){
-// 	$('.intro').on('mouseover', function(){
-// 		$(this).find('.headerLogo').html('<i class="fa fa-star"></i>');
-// 	}).on('mouseout', function(){
-// 		$(this).find('.headerLogo').html('<i class="fa fa-star-o"></i>');
-// 	});
-// })();
+(function(){
+	$('.intro').on('mouseover', function(){
+		$(this).find('.headerLogo').html('<i class="fa fa-star"></i>');
+	}).on('mouseout', function(){
+		$(this).find('.headerLogo').html('<i class="fa fa-star-o"></i>');
+	});
+})();
 
 
 /* misc end */
