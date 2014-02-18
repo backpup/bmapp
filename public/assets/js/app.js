@@ -783,12 +783,48 @@ RowManager.prototype.filter=function(hello)
 
 /* miscellaneous functions  */
 
+
+/* search box functionality */
+
 $("#searchIconId").click(function(){
 	var searchForm = $("#searchForm");
 	searchForm.toggleClass('expandwidth');
-
+	var searchField = $('#search');
+	searchField.on('keyup', function(){
+		var input = $(this).val();
+		return suggestBookmarks(input);
+	});
 
 });
+
+function suggestBookmarks(str)
+{
+	var keyword = str;
+	if(str=="")
+		keyword = 'all';
+
+	var request = $.ajax({
+		type:'GET',
+		data:{keyword:keyword},
+		url:'action/search',
+		dataType:'json'
+	})
+
+	.done(function(data){
+		var rowBody = $('#bookmarks-body');
+		rowBody.empty();
+		for(var i = 0; i<data.length; i++)
+		{
+			var row = buildRowFromObject(data[i]);
+			rowBody.append(row);
+		}
+		prepRows();
+		renumberRows();
+	});
+
+}
+/* Search box functionality end */
+
 
 var rowMgInitialize = new RowManager();
 

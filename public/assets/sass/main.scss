@@ -224,13 +224,11 @@ input[disabled]{
 			border: 2px solid lighten(#8a8989, 10%);
 		}
 	}
-	input[type="submit"]{
+	.searchFormInfo{
+		display:block;
 		border:none;
-
-		text-decoration:underline;
-		@include border-radius(4px);
 		background:#1f1f1f;
-		color:#8a8989;
+		color:lighten(#8a8989, 10%);
 		margin-left:85px;
 		margin-top:10px;
 	}

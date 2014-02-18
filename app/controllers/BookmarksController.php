@@ -67,6 +67,15 @@ class BookmarksController extends BaseController{
 		echo $bookmarks;
 	}
 
+	public function getSearch()
+	{
+		$keyword = Input::get('keyword');
+		if($keyword == 'all')
+			$bookmarks = Bookmark::yourBookmarksWithOutPagination();
+		else 
+			$bookmarks = Bookmark::search($keyword);
+		echo $bookmarks;
+	}
 
 }
 

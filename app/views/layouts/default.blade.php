@@ -24,10 +24,10 @@
 				<i class="fa fa-search fa-lg"></i>
 			</div>
 			<div class="searchForm" id="searchForm">
-				{{ Form::open(array('url'=>'search')) }}
+				
 					<input type="text" name="search" id="search" /><br />
-					<input type="submit" value = "search" />
-				{{ Form::close() }}
+					<span class="searchFormInfo">search</span>
+			
 			</div>
 			<div class="headerIcon" id="filterIconId">
 				<i class="fa fa-filter fa-lg"></i>

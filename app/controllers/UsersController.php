@@ -15,7 +15,7 @@ class Userscontroller extends BaseController{
 			->with('bookmarks', Bookmark::yourBookmarks())
 			->with('groups', Group::yourGroups());
 	}
-
+/* mark for deletion */
 	public function getResults($keyword)
 	{
 		return View::make('home.results')
@@ -23,7 +23,7 @@ class Userscontroller extends BaseController{
 			->with('bookmarks', Bookmark::search($keyword))
 			->with('groups', Group::yourGroups());
 	}
-
+/* mark for deletion */
 	public function postSearch()
 	{
 		$keyword = Input::get('search');
