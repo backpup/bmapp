@@ -500,6 +500,7 @@ ToolBar.prototype.groupSave=function(){
 		$(".appInfo").append(grpSpan);
 		that.grpFormSpan.css({display:'none', zIndex:'-1'});
 		that.grpAddBtn.css({display:'', zIndex:'10'});
+		var rowMg = new RowManager();
 	});
 
 };
@@ -683,7 +684,6 @@ ToolBar.prototype.postSaveRowInput=function()
 		var newRow = new BookmarkGo(that.newRowToSave);
 		var rowM = new RowManager();
 		var d = true;
-		rowM.propogateChange(that.newRowToSave, d);
 		renumberRows();
 	})
 
@@ -738,6 +738,7 @@ var RowManager = function()
 
 RowManager.prototype.init = function(){
 	var select = $('#groupSelect');
+	select.children(':not(:first)').remove();
 	$.each($('.bookmarkGroups'), function(i, val){
 		var groupName = $(val).text();
 		$('<option>').attr('val', groupName).text(groupName)
@@ -766,7 +767,6 @@ RowManager.prototype.filter=function(hello)
 		for(var i = 0; i<data.length; i++)
 		{
 			var row = buildRowFromObject(data[i]);
-			//console.log(row);
 			rowBody.append(row);
 		}
 		prepRows();
@@ -785,19 +785,16 @@ RowManager.prototype.filter=function(hello)
 
 $("#searchIconId").click(function(){
 	var searchForm = $("#searchForm");
-	//$("#search").val('');
 	searchForm.toggleClass('expandwidth');
 
-	// searchForm.find('input:submit').click(function(){
-		
-	// });
+
 });
 
-var rowMg = new RowManager();
+var rowMgInitialize = new RowManager();
 
 $("#groupSelect").on('change', function(){
 	var rowName = $(this).find('option:selected').val();
-	rowMg.filter(rowName);
+	rowMgInitialize.filter(rowName);
 });
 $("#filterIconId").click(function(){
 	$('#filterBox').toggleClass('expandFilter');
@@ -885,5 +882,6 @@ $(document).ready(function(){
 		$("#bmAddBtn").trigger("click");
 
 	var check = new GroupManager();
+	
 
 });
