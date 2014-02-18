@@ -12,12 +12,12 @@
 */
 
 
-// App::error(function (Exception $exception, $code)
-// {	
-// 	$errorArray = ['400'=>'Bad Request', '401'=>'Unauthorized', '403'=>'Forbidden', '404'=>'Page Not Found', '500'=>'Not found'];
-// 	$error = array('code'=>$code, 'text'=>$errorArray[$code]);
-// 	return Response::view('layouts.error', $error, $error['code']);
-// });
+App::error(function (Exception $exception, $code)
+{	
+	$errorArray = ['400'=>'Bad Request', '401'=>'Unauthorized', '403'=>'Forbidden', '404'=>'Page Not Found', '500'=>'Not found'];
+	$error = array('code'=>$code, 'text'=>$errorArray[$code]);
+	return Response::view('layouts.error', $error, $error['code']);
+});
 
 
 Route::get('/', array('as'=>'home', 'uses'=>'UsersController@getIndex'));
@@ -31,21 +31,21 @@ Route::post('register', array('uses'=>'UsersController@postCreate'));
 Route::post('search', array('uses'=>'UsersController@postSearch'));
 
 
-Route::get('testthis', function(){
-	//return Bookmark::where('id','=',1)->get(array('title'));
-	// $group = new Group;
-	// $group->bookmarkGroup = 'general';
-	// $group->user_id = '1';
-	// $group->save();
-		// $bookmark = new Bookmark;
-		// $bookmark->title = 'hello';
-		// $bookmark->link = 'http://helloworld.com';
-		// $bookmark->user_id = '1';
-		// $bookmark->group_id= '2';
-		// $bookmark->stars= 4;
-		// $bookmark->save();
-	return Bookmark::search('red');
-});
+// Route::get('testthis', function(){
+// 	//return Bookmark::where('id','=',1)->get(array('title'));
+// 	// $group = new Group;
+// 	// $group->bookmarkGroup = 'general';
+// 	// $group->user_id = '1';
+// 	// $group->save();
+// 		// $bookmark = new Bookmark;
+// 		// $bookmark->title = 'hello';
+// 		// $bookmark->link = 'http://helloworld.com';
+// 		// $bookmark->user_id = '1';
+// 		// $bookmark->group_id= '2';
+// 		// $bookmark->stars= 4;
+// 		// $bookmark->save();
+// 	return Bookmark::search('red');
+// });
 
 /* App Controller */
 Route::controller('action', 'BookmarksController');
