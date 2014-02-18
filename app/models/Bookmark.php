@@ -18,12 +18,20 @@ class Bookmark extends Basemodel{
 			->orderBy('created_at', 'desc')->paginate(60);
 	}
 
+		public static function yourBookmarksWithOutPagination()
+	{
+		if(Auth::check())
+			return static::where('user_id', '=', Auth::user()->id)
+			->orderBy('created_at', 'desc')->get();
+	}
+
 	public static function yourBookmarksByGroup($id)
 	{
 		if(Auth::check())
 			return static::where('user_id', '=', Auth::user()->id)
 					->where('group_id', '=', $id)
-					->orderBy('created_at', 'desc')->paginate(60);
+					->orderBy('created_at', 'desc')
+					->get();
 	}
 
 	public static function search($keyword)

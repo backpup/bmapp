@@ -83,6 +83,8 @@
 <?php $counter++; ?>
 @endforeach
 
+
+</div><!--bookmarks-body end-->
 <div class="appInfo">
 	@foreach ($groups as $group)
 
@@ -90,7 +92,6 @@
 
 	@endforeach
 </div>
-</div><!--bookmarks-body end-->
 <div class="paginate">
 {{ $bookmarks->links() }}
 </div>

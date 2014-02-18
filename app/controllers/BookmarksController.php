@@ -54,11 +54,17 @@ class BookmarksController extends BaseController{
 		$group->save();
 		$insertedId=json_encode(['grpId'=>$group->id, 'group'=>$group->bookmarkGroup]);
 		echo $insertedId;
+
 	}
 
-	public function postFilterGroup()
+	public function getFilterByGroup()
 	{
-		
+		$groupId=Input::get('group_id');
+		if($groupId=='all')
+			$bookmarks = Bookmark::yourBookmarksWithOutPagination();
+		else
+			$bookmarks = Bookmark::yourBookmarksByGroup($groupId);
+		echo $bookmarks;
 	}
 
 
