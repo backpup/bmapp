@@ -540,7 +540,7 @@ ToolBar.prototype.addInputBar=function()
 	{
 
 		if(j%2!==0)
-			groupSelect.append($('<option>').val(this.groupArray[i]).text(this.groupArray[i]));
+			groupSelect.append($('<option>').val(this.groupArray[j]).text(this.groupArray[j]));
 	}
 	groupSpan.append(groupSelect);
 	var saveBtn = $('<span>').addClass('btn green edit').html('<i class="fa fa-save fa-lg">')
