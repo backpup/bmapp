@@ -21,8 +21,8 @@ var ratingWidget = function(ratingList, toggle)
 	$.each(this.ratingList.find('.tara'), function(i, star){
 	
 		$(star).attr('id', that.listId+"_"+i).css('cursor', 'pointer');
-		$(star).on('mouseover', function(){ return that.rateOver( i ) });
-		$(star).click(function(){ return that.rateClick( i ) });
+		$(star).on('mouseover', function(){ return that.rateOver( i ); });
+		$(star).click(function(){ return that.rateClick( i ); });
 	});
 	this.ratingList.on('mouseout', $.proxy(this.rateOut, this));
 };
@@ -96,7 +96,7 @@ var Validator =function(array, isGroup)
 					this.displayError('Title is required.');
 					this.isValid = false;
 					return;
-				}else if (/^[a-zA-Z _0-9-]+$/.test(array[0])==false)
+				}else if (/^[a-zA-Z _0-9-]+$/.test(array[0])===false)
 				{
 					this.displayError('Only alphabets, numbers and dashes are valid');
 					this.isValid = false;
@@ -116,15 +116,15 @@ var Validator =function(array, isGroup)
 			}
 		}
 	}
-}
+};
 
 Validator.prototype.displayError = function(errorMsg){
-	var that = this;
-	var infoDiv = $('#header-info');
-	if(this.msgExist == true)
-	{
-		clearTimeout(this.timeOut);
-		infoDiv.html('');
+  var that = this;
+  var infoDiv = $('#header-info');
+  if(this.msgExist === true)
+  {
+    clearTimeout(this.timeOut);
+    infoDiv.html('');
 
 
 	}else{
@@ -135,7 +135,7 @@ Validator.prototype.displayError = function(errorMsg){
 		}, 3000);
 	}
 
-}
+};
 
 
 
@@ -215,9 +215,9 @@ BookmarkGo.prototype.bmEdit = function()
 			
 			var ratingList = $('<span>').addClass('ratingList').attr('id', 'ratingList'+idForRatingList)
 			.attr('data-rating', count);
-			for(var i=0; i<5;i++)
+			for(var j=0; j<5;j++)
 			{
-				if(i<count)
+				if(j<count)
 					ratingList.append($('<i class="fa tara fa-star"></i>'));
 				else
 					ratingList.append($('<i class="fa tara fa-star-o"></i>'));
@@ -241,18 +241,18 @@ BookmarkGo.prototype.bmEdit = function()
 			var prevSelected = $(val).text().toUpperCase();
 
 			var groupSelect = $('<select>').attr('name', 'groupSelect');
-			for(var i=0; i<that.groupArray.length; i++)
+			for(var k=0; k<that.groupArray.length; k++)
 			{
 
-				if(i%2!==0)
+				if(k%2!==0)
 				{
-					if(prevSelected==that.groupArray[i])
-						$('<option>').val(that.groupArray[i])
-						.text(that.groupArray[i]).attr("selected", true)
+					if(prevSelected==that.groupArray[k])
+						$('<option>').val(that.groupArray[k])
+						.text(that.groupArray[k]).attr("selected", true)
 						.appendTo(groupSelect);
 					else
-						groupSelect.append($('<option>').val(that.groupArray[i])
-						.text(that.groupArray[i]));
+						groupSelect.append($('<option>').val(that.groupArray[k])
+						.text(that.groupArray[k]));
 				}
 			}
 			$(val).text("").append(groupSelect);
@@ -261,11 +261,11 @@ BookmarkGo.prototype.bmEdit = function()
 		else if($(val).hasClass('delete')){
 			
 
-			var btn = $(this);
-			btn.off();
+			var bttn = $(this);
+			bttn.off();
 			var icon = $('<i class="fa fa-minus-circle fa-lg">');
 
-			btn.text('').append(icon).on('click', function(){
+			bttn.text('').append(icon).on('click', function(){
 				return that.cancelEdit();
 			});
 		
@@ -289,33 +289,32 @@ BookmarkGo.prototype.cancelEdit=function()
 
 BookmarkGo.prototype.postEdit = function()
 {
-	var that = this;
- 	var inputs = that.collectedInputs;
- 
- 	var validator = new Validator(inputs);
- 	if(!validator.isValid)
- 	{
- 	
- 		that.cancelEdit();
- 		//that.currentRow.children().last().remove();
- 		return;
- 	}
-
- 	var bmId = this.currentRow.attr('id').split("_")[1];
- 	var request = $.ajax({
- 		type:'POST',
- 		data:{id:bmId, title:inputs[0], link:inputs[1], group_id:inputs[3], stars:inputs[2]},
- 		url:'action/update'
- 	});
-
- 	request.done(function(){
- 		that.currentRow.children().last().remove();
- 		that.currentRow.children().last().remove();
- 	});
- 	request.fail(function(){
- 		that.cancelEdit();
- 	});
-
+  var that = this;
+  var inputs = that.collectedInputs;
+  var validator = new Validator(inputs);
+  if(!validator.isValid)
+  {
+    
+    that.cancelEdit();
+    //that.currentRow.children().last().remove();
+    return;
+  }
+  
+  var bmId = this.currentRow.attr('id').split("_")[1];
+  var request = $.ajax({
+    type:'POST',
+    data:{id:bmId, title:inputs[0], link:inputs[1], group_id:inputs[3], stars:inputs[2]},
+    url:'action/update'
+  });
+  
+  request.done(function(){
+    that.currentRow.children().last().remove();
+    that.currentRow.children().last().remove();
+  });
+  request.fail(function(){
+    that.cancelEdit();
+  });
+  
 };
 
 BookmarkGo.prototype.saveEdit=function()
@@ -412,7 +411,7 @@ BookmarkGo.prototype.bmDelete=function()
 		renumberRows();
 	}).fail(function(){
 		that.cancelEdit();
-	})
+	});
 	
 };
 
@@ -439,8 +438,7 @@ var ToolBar = function(){
 /* -------Group functionality-------- */
 
 ToolBar.prototype.initiateGrpAdd=function(){
-	// if(!this.toolBarChecker)
-	// 	return;
+
 	var that = this;
 	if(this.grpBarChecker)
 	{
@@ -484,7 +482,7 @@ ToolBar.prototype.initiateGrpAdd=function(){
 
 ToolBar.prototype.groupSave=function(){
 	var val = $("#newGrp").val();
-	if(val.length==0)
+	if(val.length===0)
 		return;
 	var that = this;
 	var request = $.ajax({
@@ -527,7 +525,7 @@ ToolBar.prototype.addInputBar=function()
 
 	var idForRatingList = this.getNewRowCount()+1;
 	
-	var ratingList = $('<span>').addClass('ratingList').attr('id', 'ratingList'+idForRatingList)
+	var ratingList = $('<span>').addClass('ratingList').attr('id', 'ratingList'+idForRatingList);
 	for(var i=0; i<5;i++)
 	{
 		ratingList.append($('<i class="fa tara fa-star-o"></i>'));
@@ -538,17 +536,17 @@ ToolBar.prototype.addInputBar=function()
 
 	var groupSpan = $('<span>').addClass('group');
 	var groupSelect = $('<select>').attr('name', 'groupSelect');
-	for(var i=0; i<this.groupArray.length; i++)
+	for(var j=0; j<this.groupArray.length; j++)
 	{
 
-		if(i%2!==0)
+		if(j%2!==0)
 			groupSelect.append($('<option>').val(this.groupArray[i]).text(this.groupArray[i]));
 	}
 	groupSpan.append(groupSelect);
 	var saveBtn = $('<span>').addClass('btn green edit').html('<i class="fa fa-save fa-lg">')
 		.on('click', function(){
 			return that.saveRowInput();
-		})
+		});
 	var cancelBtn = $('<span>').addClass('btn red delete').text('')
 	.append($('<i class="fa fa-minus-circle fa-lg">')).click(function(){
 		return that.delRowInput();
@@ -557,7 +555,7 @@ ToolBar.prototype.addInputBar=function()
 	var linkDiv=$('<div>').html('<i class="fa fa-link"></i>')
 							.addClass('actionIndicator num');
 	var linkSpan=$("<input>").attr({type:"text", name:"link", placeholder:"link.."})
-			.addClass('title')
+			.addClass('title');
 
 	rowDiv.append(numDiv).append(titleSpan).append(starSpan).append(groupSpan)	
 	.append(saveBtn).append(cancelBtn).append(linkDiv).append(linkSpan);
@@ -685,7 +683,7 @@ ToolBar.prototype.postSaveRowInput=function()
 		var rowM = new RowManager();
 		var d = true;
 		renumberRows();
-	})
+	});
 
 };
 
@@ -732,9 +730,9 @@ var RowManager = function()
 	var groupMg = new GroupManager();
 
 	this.groupArray = groupMg.getGroupArray();
-	this.filteredList = new Array();
+	this.filteredList = [];
 	this.init();
-}
+};
 
 RowManager.prototype.init = function(){
 	var select = $('#groupSelect');
@@ -744,7 +742,7 @@ RowManager.prototype.init = function(){
 		$('<option>').attr('val', groupName).text(groupName)
 			.appendTo(select);
 	});
-}
+};
 RowManager.prototype.filter=function(hello)
 {
 	var that = this;
@@ -774,7 +772,7 @@ RowManager.prototype.filter=function(hello)
 	});
 
 	
-}
+};
 
 
 
@@ -800,7 +798,7 @@ $("#searchIconId").click(function(){
 function suggestBookmarks(str)
 {
 	var keyword = str;
-	if(str=="")
+	if(str==="")
 		keyword = 'all';
 
 	var request = $.ajax({
@@ -914,7 +912,7 @@ $(document).ready(function(){
 	var init = prepRows();
 	var tl = new ToolBar();
 
-	if(init==0)
+	if(init===0)
 		$("#bmAddBtn").trigger("click");
 
 	var check = new GroupManager();

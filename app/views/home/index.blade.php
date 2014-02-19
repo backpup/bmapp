@@ -97,21 +97,5 @@
 </div>
 </div><!--bookmarksView end-->
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 @endif
 @endsection

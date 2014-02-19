@@ -18,6 +18,7 @@
 			<div class="pageError">
 				<h2>url not found</h2>
 				<p>Please check that your url is valid</p>
+				<p>If you typed your url instead of copy/pasting it from the browser when saving it it's probably missing http://  infront of it.</p>
 			</div>
 		</div>
 	</section>
