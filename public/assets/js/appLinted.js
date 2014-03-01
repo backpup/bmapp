@@ -1,6 +1,6 @@
-/* ************* The Rating Widget ************************** */
-/**************************************************************/
-
+/* ************* Rating Widget ************************** */
+/** Will take a div that has child star elements and hooks up
+rating functionality to it **/
 
 /**
 *@param ratingList - a span that has star spans
@@ -68,55 +68,54 @@ ratingWidget.prototype.rateOut=function()
 	}
 };
 
-/* ************* The End ************************************ */
-/**************************************************************/
-
-
-/* *******************The Validator************************ */
-
+/* *******************Validator************************ */
+/** validation and error display on submit **/
 /**
-*@desc opens wut
+*@param array of inputs
+*@param denotes if the input array is of class group
 */
-
 
 var Validator =function(array, isGroup)
 {
 	this.msgExist = false;
 	this.isValid = true;
 	var ct = 0;
-	(isGroup)? ct=1: ct=2;
-	for(var i = 0; i<ct; i++)
+	(isGroup)? ct=2: ct=1;
+	switch(ct)
 	{
-		switch(i)
+		case 1:
 		{
-			case 0:
+			if(array.title.length<1)
 			{
-				if(array[0].length<1)
-				{
-					this.displayError('Title is required.');
-					this.isValid = false;
-					return;
-				}else if (/^[a-zA-Z _0-9-]+$/.test(array[0])===false)
-				{
-					this.displayError('Only alphabets, numbers and dashes are valid');
-					this.isValid = false;
-					return;
-				}
-				break;
-			}
-			case 1:
+				this.displayError('Title is required.');
+				this.isValid = false;
+				return;
+			}else if (/^[a-zA-Z _0-9-]+$/.test(array.title)===false)
 			{
-				if(array[1].length<1)
-				{
-					this.displayError('Url is required.');
-					this.isValid=false;
-					return;
-				}
-				break;
+				this.displayError('Only alphabets, numbers and dashes are valid');
+				this.isValid = false;
+				return;
+			}else if(array.link.length<1){
+				this.displayError('Url is required');
+				this.isValid = false;
+				return
 			}
+			break;
+		}
+		case 2:
+		{
+			if(array[0].length<1)
+			{
+				this.displayError('Url is required.');
+				this.isValid=false;
+				return;
+			}
+			break;
 		}
 	}
+
 };
+/** this one function will handly error display and cleanup with a timeout **/
 
 Validator.prototype.displayError = function(errorMsg){
   var that = this;
@@ -125,7 +124,6 @@ Validator.prototype.displayError = function(errorMsg){
   {
     clearTimeout(this.timeOut);
     infoDiv.html('');
-
 
 	}else{
 		infoDiv.html('<i class="fa fa-ban fa-lg"></i> '+errorMsg);
@@ -136,8 +134,6 @@ Validator.prototype.displayError = function(errorMsg){
 	}
 
 };
-
-
 
 /* **********************validator-end********************* */
 
@@ -156,11 +152,9 @@ BookmarkGo.prototype.init=function()
 {
 	var that = this;
 	var row = this.currentRow;
-	//console.log(this.currentRow);
 	this.beingEdited=true;
 	var editBtn = row.children('.edit');
 
-	//row.children('.delete').on('click', $.proxy(that.bmDelete, row));
 	row.children('.delete').on('click', function(){
 		return that.bmDelete();
 	});
@@ -170,7 +164,7 @@ BookmarkGo.prototype.init=function()
 	
 };
 
-/* what a monstrosity */
+
 BookmarkGo.prototype.bmEdit = function()
 {
 	
@@ -296,20 +290,22 @@ BookmarkGo.prototype.postEdit = function()
   {
     
     that.cancelEdit();
-    //that.currentRow.children().last().remove();
     return;
   }
   
   var bmId = this.currentRow.attr('id').split("_")[1];
   var request = $.ajax({
     type:'POST',
-    data:{id:bmId, title:inputs[0], link:inputs[1], group_id:inputs[3], stars:inputs[2]},
+    data:{id:bmId, title:inputs.title, link:inputs.link, group_id:inputs.group_id, stars:inputs.stars},
     url:'action/update'
   });
   
   request.done(function(){
-    that.currentRow.children().last().remove();
-    that.currentRow.children().last().remove();
+  	var newRow = buildRowFromObject(inputs);
+  	newRow.attr('id', 'bookmark_'+bmId);
+  	var initialize = new BookmarkGo(newRow);
+  	that.currentRow.replaceWith(newRow);
+  	renumberRows();
   });
   request.fail(function(){
     that.cancelEdit();
@@ -320,78 +316,47 @@ BookmarkGo.prototype.postEdit = function()
 BookmarkGo.prototype.saveEdit=function()
 {
 	var that = this;
-	that.collectedInputs=[];
-
-
+	this.collectedInputs={};
 
 	$.each(this.currentRow.children(), function(i, val){
 		var val = $(val);
 
 		switch(i){
-
-			case 0:
-			{
-				var count = val.data('num');
-				var numSpan = $('<span>').attr('data-num', count)
-					.addClass('num').text(count);
-				val.replaceWith(numSpan);
-				break;
-			}
 			case 1:
 			{
-				that.collectedInputs.push(val.val());
-
-				var link = that.currentRow.children('.title').last().val();
-				var titleSpan = $('<span>').addClass('title').text(val.val());
-				var a = $('<a>').attr({href:link, target:"_blank"});
-				a.append(titleSpan);
-				val.replaceWith(a);
-
-				that.collectedInputs.push(link);
+				that.collectedInputs.title = val.val();
 				break;
 			}
 			case 2:
 			{	
+
 				var ratingList = val.children();
 				var starCount = ratingList.data('rating');
 				ratingList.children().off();
-				that.collectedInputs.push(ratingList.data('rating'));
+				that.collectedInputs.stars = starCount;
 				break;
 
 			}
 			case 3:
 			{
-
-				var groupSpan = $(val);
+				var groupSpan = val;
 				var selected = groupSpan.children().find('option:selected').val().toUpperCase();
 				var key = that.groupArray.indexOf(selected)-1;
-				groupSpan.text(selected);
-				that.collectedInputs.push(parseInt(that.groupArray[key]));
+				that.collectedInputs.group_id = parseInt(that.groupArray[key]);
 				break;
 			}
-			case 4:
+			case 7:
 			{
-				val.off();
-				val.removeClass('green').addClass('blue')
-					.html('<i class="fa fa-edit fa-lg">').click(function(){
-						return that.bmEdit();
-					});
+				that.collectedInputs.link = val.val();
 				break;
 			}
-			case 5:
-			{
-				val.off();
-				var icon = $('<i class="fa fa-trash-o">');
-				val.text('').append(icon).click(function(){
-					return that.bmDelete();
-				});
-				break;
-			}
+		
 			default:
 				break;
 			}
 
 	});
+
 	that.postEdit();
 	
 };
@@ -417,9 +382,6 @@ BookmarkGo.prototype.bmDelete=function()
 
 /* **************************************************** */
 /* ***********Bookmark edit-delete functionalities complete */
-/* *********************************************************** */
-
-
 
 /* **********BM-Header-Controls************************ */
 
@@ -578,33 +540,20 @@ ToolBar.prototype.getNewRowCount=function()
 
 ToolBar.prototype.saveRowInput=function()
 {
-	this.collectedInputArray=[];
+	this.collectedInputs={};
 	var that = this;
-/* retrieved id will go here */
-	that.newRowToSave=$("<div>").addClass('row');
-/* grabbing link to wrap title with */
-	var linkInput = this.row.children().last().val();
-/* Get the count for the row */
-	var newRowCount = that.getNewRowCount()+".";
+
+	//that.newRowToSave=$("<div>").addClass('row');
+
+
 	$.each(this.row.children(), function(i, val){
 		var val = $(val);
 		switch(i)
 		{
-			case 0:
-			{
-				var numSpan = $('<span>')
-				.addClass('num').text(newRowCount);
-				that.newRowToSave.append(numSpan);
-				break;
-			}
+
 			case 1:
 			{
-				that.collectedInputArray.push(val.val());
-				that.collectedInputArray.push(linkInput);
-				var titleSpan = $('<span>').addClass('title').text(val.val());
-				var link = $('<a>').attr({href:linkInput, target:'_blank'});
-				link.append(titleSpan);
-				that.newRowToSave.append(link);
+				that.collectedInputs.title = val.val();
 				break;
 			}
 			case 2:
@@ -612,12 +561,7 @@ ToolBar.prototype.saveRowInput=function()
 				var ratingList = val.children();
 				ratingList.children().off();
 				var starCount = ratingList.children('.fa-star').length;
-
-				that.collectedInputArray.push(starCount);
-
-				ratingList.attr('data-rating', starCount);
-				$('<span>').addClass('stars').append(ratingList)
-				.appendTo(that.newRowToSave);
+				that.collectedInputs.stars = starCount;
 				break;
 			}
 			case 3:
@@ -625,29 +569,16 @@ ToolBar.prototype.saveRowInput=function()
 				var groupSpan = $(val);
 				var selected = groupSpan.children().find('option:selected').val().toUpperCase();
 				var key = that.groupArray.indexOf(selected)-1;
-				that.collectedInputArray.push(parseInt(that.groupArray[key]));
-				$('<span>').addClass('group').text(selected)
-					.appendTo(that.newRowToSave);
+				that.collectedInputs.group_id = parseInt(that.groupArray[key]);
 				break;
 			}
-			case 4:
+			case 7:
 			{
-				$(val).off().html('<i class="fa fa-edit fa-lg">')
-				.removeClass('green').addClass('blue')
-				.appendTo(that.newRowToSave);
-				break;
-			}
-			case 5:
-			{
-				$(val).off().text('').html('<i class="fa fa-trash-o">')
-					.appendTo(that.newRowToSave);
-					break;
+				that.collectedInputs.link = val.val();
 			}
 			default:
 				break;
 		}
-		// {
-		// }
 		
 	});
 
@@ -658,7 +589,7 @@ ToolBar.prototype.saveRowInput=function()
 ToolBar.prototype.postSaveRowInput=function()
 {
 	var that = this;
-	var inputs = that.collectedInputArray;
+	var inputs = that.collectedInputs;
 	var validator = new Validator(inputs);
 	if(!validator.isValid)
 	{
@@ -671,15 +602,16 @@ ToolBar.prototype.postSaveRowInput=function()
 	}
 	var request=$.ajax({
 		type:'POST',
-		data:{title:inputs[0], link:inputs[1], stars:inputs[2], group_id:inputs[3]},
+		data:{title:inputs.title, link:inputs.link, stars:inputs.stars, group_id:inputs.group_id},
 		url:'action/new'
 	});
 
 	request.done(function(data){
-		that.newRowToSave.attr('id', 'bookmark_'+data);
-		that.row.replaceWith(that.newRowToSave);
+		var newRow = buildRowFromObject(inputs);
+		newRow.attr('id', 'bookmark_'+data);
+		that.row.replaceWith(newRow);
 		that.toolBarChecker=true;
-		var newRow = new BookmarkGo(that.newRowToSave);
+		var newR = new BookmarkGo(newRow);
 		var rowM = new RowManager();
 		var d = true;
 		renumberRows();
@@ -696,7 +628,7 @@ ToolBar.prototype.delRowInput = function(){
 
 
 /* Functionality to manage group selections */
-
+/** will keep track of ids of different groups **/
 
 var GroupManager = function()
 {
@@ -718,13 +650,8 @@ GroupManager.prototype.getGroupArray=function()
 
 
 
-/* Functionality to manage existing rows */
-/* will have current row list */
-/* one global variable, oh well */
-var savedRowList = $("#bookmarks-body").children(".row");
+/** This will handle filtering of rows on select **/
 
-/*###change*/
-/* Wont use the global above anymore and will do ajax request */
 var RowManager = function()
 {
 	var groupMg = new GroupManager();
@@ -773,13 +700,6 @@ RowManager.prototype.filter=function(hello)
 
 	
 };
-
-
-
-
-
-
-/* miscellaneous functions  */
 
 
 /* search box functionality */
@@ -834,7 +754,12 @@ $("#filterIconId").click(function(){
 	$('#filterBox').toggleClass('expandFilter');
 });
 
+
+
+
 /* Global functions that should be available to all classes */
+/** should probably refactor it out into a global object or something but
+this is the final form of the project so this is it **/
 
 var prepRows = function(){
 	var count = 0;
@@ -852,6 +777,9 @@ var renumberRows = function(){
 	});
 	
 };
+
+/** This will turn a JSON object into a row**/
+/** The object is a response from the server to an ajax request **/
 
 var buildRowFromObject = function(bookmark)
 {
@@ -876,10 +804,12 @@ var buildRowFromObject = function(bookmark)
 		else
 			ratingList.append($('<i class="fa tara fa-star-o"></i>'));
 	}
-	var newRatWidg = new ratingWidget(ratingList, count);
+	//var newRatWidg = new ratingWidget(ratingList, count);
 	$('<span>').addClass('stars').append(ratingList).appendTo(newRow);
-
-	var grpIndex = groupArray.indexOf(bookmark.group_id)+1;
+	
+	var bmId = 0;
+	((typeof bookmark.group_id)=='number')? bmId = bookmark.group_id.toString(): bmId = bookmark.group_id;
+	var grpIndex = groupArray.indexOf(bmId)+1;
 
 	$('<span>').addClass('group').text(groupArray[grpIndex])
 		.appendTo(newRow);
@@ -917,5 +847,4 @@ $(document).ready(function(){
 
 	var check = new GroupManager();
 	
-
 });
