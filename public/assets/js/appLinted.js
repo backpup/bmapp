@@ -9,20 +9,15 @@ rating functionality to it **/
 var ratingWidget = function(ratingList, toggle)
 {
 	var that = this;
-	if(arguments.length==2)
-		this.starCount = toggle;
-	else
-		this.starCount=0;
+	this.starCount = toggle||0;
 	this.ratingList = ratingList;
 	this.listId = this.ratingList.attr('id');
 
-
-
 	$.each(this.ratingList.find('.tara'), function(i, star){
 	
-		$(star).attr('id', that.listId+"_"+i).css('cursor', 'pointer');
-		$(star).on('mouseover', function(){ return that.rateOver( i ); });
-		$(star).click(function(){ return that.rateClick( i ); });
+		$(star).attr('id', that.listId+"_"+i).css('cursor', 'pointer')
+				.on('mouseover', function(){ return that.rateOver( i ); })
+				.click(function(){ return that.rateClick( i ); });
 	});
 	this.ratingList.on('mouseout', $.proxy(this.rateOut, this));
 };
@@ -32,15 +27,18 @@ ratingWidget.prototype.rateOver=function(i)
 	for(var j=0; j<5; j++)
 	{
 		if(j<=i)
+		{
 			$("#"+this.listId+"_"+j).removeClass('fa-star-o').addClass('fa-star');
+		}
 		else
+		{
 			$('#'+this.listId+"_"+j).addClass('fa-star-o');
+		}
 	}
 };
 
 ratingWidget.prototype.rateClick=function(i)
 {
-	var current = i;
 	for(var j = 0; j < 5; j++)
 	{
 		if(j <=i)
@@ -85,17 +83,19 @@ var Validator =function(array)
 		this.displayError('Title is required.');
 		this.isValid = false;
 		return;
-	}else if (/^[a-zA-Z _0-9-]+$/.test(array.title)===false)
+	}
+	else if (/^[a-zA-Z _0-9-]+$/.test(array.title)===false)
 	{
 		this.displayError('Only alphabets, numbers and dashes are valid');
 		this.isValid = false;
 		return;
-	}else if(array.link.length<1){
+	}
+	else if(array.link.length<1)
+	{
 		this.displayError('Url is required');
 		this.isValid = false;
 		return;
 	}
-
 };
 /** this one function will handly error display and cleanup with a timeout **/
 
@@ -122,7 +122,6 @@ Validator.prototype.displayError = function(errorMsg){
 
 var BookmarkGo = function(row)
 {
-	var that = this;
 	this.bmBody = $('#bookmarks-body');
 	this.currentRow = row;
 	this.init();
@@ -217,19 +216,21 @@ BookmarkGo.prototype.bmEdit = function()
 			var prevSelected = $(val).text().toUpperCase();
 
 			var groupSelect = $('<select>').attr('name', 'groupSelect');
-			for(var k=0; k<that.groupArray.length; k++)
+			for(var k=1; k<that.groupArray.length; k+=2)
 			{
 
-				if(k%2!==0)
+				if(prevSelected==that.groupArray[k])
 				{
-					if(prevSelected==that.groupArray[k])
-						$('<option>').val(that.groupArray[k])
-						.text(that.groupArray[k]).attr("selected", true)
-						.appendTo(groupSelect);
-					else
-						groupSelect.append($('<option>').val(that.groupArray[k])
-						.text(that.groupArray[k]));
+					$('<option>').val(that.groupArray[k])
+					.text(that.groupArray[k]).attr("selected", true)
+					.appendTo(groupSelect);
 				}
+				else
+				{
+					groupSelect.append($('<option>').val(that.groupArray[k])
+					.text(that.groupArray[k]));
+				}
+
 			}
 			$(val).text("").append(groupSelect);
 
@@ -283,11 +284,11 @@ BookmarkGo.prototype.postEdit = function()
   });
   
   request.done(function(){
-  	var newRow = buildRowFromObject(inputs);
-  	newRow.attr('id', 'bookmark_'+bmId);
-  	var initialize = new BookmarkGo(newRow);
-  	that.currentRow.replaceWith(newRow);
-  	renumberRows();
+    var newRow = buildRowFromObject(inputs);
+    newRow.attr('id', 'bookmark_'+bmId);
+    var initialize = new BookmarkGo(newRow);
+    that.currentRow.replaceWith(newRow);
+    renumberRows();
   });
   request.fail(function(){
     that.cancelEdit();
@@ -301,8 +302,7 @@ BookmarkGo.prototype.saveEdit=function()
 	this.collectedInputs={};
 
 	$.each(this.currentRow.children(), function(i, val){
-		var val = $(val);
-
+    var val = $(val);
 		switch(i){
 			case 1:
 			{
@@ -557,6 +557,7 @@ ToolBar.prototype.saveRowInput=function()
 			case 7:
 			{
 				that.collectedInputs.link = val.val();
+        break;
 			}
 			default:
 				break;
@@ -669,13 +670,8 @@ RowManager.prototype.filter=function(hello)
 	})
 
 	.done(function(data){
-		var rowBody = $('#bookmarks-body');
-		rowBody.empty();
-		for(var i = 0; i<data.length; i++)
-		{
-			var row = buildRowFromObject(data[i]);
-			rowBody.append(row);
-		}
+		$('#bookmarks-body').empty()
+			.append(data.map(buildRowFromObject));
 		prepRows();
 		renumberRows();
 	});
@@ -692,7 +688,7 @@ $("#searchIconId").click(function(){
 	var searchField = $('#search');
 	searchField.on('keyup', function(){
 		var input = $(this).val();
-		return suggestBookmarks(input);
+		suggestBookmarks(input);
 	});
 
 });
@@ -789,8 +785,7 @@ var buildRowFromObject = function(bookmark)
 	//var newRatWidg = new ratingWidget(ratingList, count);
 	$('<span>').addClass('stars').append(ratingList).appendTo(newRow);
 	
-	var bmId = 0;
-	((typeof bookmark.group_id)=='number')? bmId = bookmark.group_id.toString(): bmId = bookmark.group_id;
+	var bmId = bookmark.group_id.toString();
 	var grpIndex = groupArray.indexOf(bmId)+1;
 
 	$('<span>').addClass('group').text(groupArray[grpIndex])
@@ -808,13 +803,7 @@ var buildRowFromObject = function(bookmark)
 
 /* End Global Classes */
 
-(function(){
-	$('.intro').on('mouseover', function(){
-		$(this).find('.headerLogo').html('<i class="fa fa-star"></i>');
-	}).on('mouseout', function(){
-		$(this).find('.headerLogo').html('<i class="fa fa-star-o"></i>');
-	});
-}());
+
 
 
 /* misc end */
@@ -828,5 +817,13 @@ $(document).ready(function(){
 		$("#bmAddBtn").trigger("click");
 
 	var check = new GroupManager();
+
+	(function(){
+		$('.intro').on('mouseover', function(){
+			$(this).find('.headerLogo').html('<i class="fa fa-star"></i>');
+		}).on('mouseout', function(){
+			$(this).find('.headerLogo').html('<i class="fa fa-star-o"></i>');
+		});
+	}());
 	
 });

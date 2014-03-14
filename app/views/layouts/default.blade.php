@@ -76,6 +76,6 @@
 		</div>
 	</footer>
 <script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
-{{ HTML::script('/assets/js/appLinted.js') }}
+{{ HTML::script('/assets/js/app.min.js') }}
 </body>
 </html>
