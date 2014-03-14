@@ -21,10 +21,11 @@ App::error(function (Exception $exception, $code)
 
 
 Route::get('/', array('as'=>'home', 'uses'=>'UsersController@getIndex'));
+Route::get('/testride', array('uses'=>'UsersController@getLogin'));
 
 Route::get('register', array('as'=>'register', 'uses'=>'UsersController@getNew'));
 Route::get('logout', array('uses'=>'UsersController@getLogout'));
-Route::get('results/{all}', array('uses'=>'UsersController@getResults'));
+//Route::get('login', array('uses'=>'UsersController@getLoginPage'));
 
 Route::post('/', array('uses'=>'UsersController@postLogin'));
 Route::post('register', array('uses'=>'UsersController@postCreate'));

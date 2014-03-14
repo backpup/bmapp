@@ -82,6 +82,22 @@ class Userscontroller extends BaseController{
 		}
 	}
 
+	public function getLogin()
+	{
+		$user = array(
+			'username'=>'JohnDoe',
+			'password'=>'password'
+		);
+		if(Auth::attempt($user))
+		{
+			return Redirect::route('home');
+
+		}else{
+			return Redirect::route('home')
+				->with('msg', 'Your username/password combination was incorrect');
+		}
+	}
+
 	public function getLogout()
 	{
 		if(Auth::check())

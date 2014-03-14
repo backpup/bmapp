@@ -19,9 +19,9 @@ body{
 
 a{ text-decoration:none; }
 
-.button { @include sassy-button-structure(5px, 12px, 0.5em 1.5em);}
+.button { @include sassy-button-structure(5px, 12px, 0.4em 1.5em);}
 .btn { @include sassy-button-structure(5px, 14px); display:block; text-align:center; }
-
+.bigBtn { @include sassy-button-structure(5px, 18px, 1em 2em);}
 
 
 
@@ -78,7 +78,22 @@ input[disabled]{
 		color:$bluebtn1;
 	}
 }
+.mainLogin{
+	float:right;
+	margin-top:10px;
+	color:lighten(#8a8989, 35%);
+	input[type="text"], input[type="password"]{
+		width:125px;
+		font-size:.9em;
+		background:#1f1f1f;
+		border: 2px solid #4D4D4D;
+	}
+
+}
 .loginPrompt{
+	@include span-columns(12);
+	@include pre(2);
+	color:darken(#8a8989, 10%);
 	height:800px; overflow:hidden; position:relative;
 	text-align:center;
 	//@include background(radial-gradient(40px 40px, cyan 50px, dodgerblue 30px))
@@ -91,25 +106,70 @@ input[disabled]{
 }
 .loginForm{
 	
-	top:20%;
-	left:35%;
-	position:absolute;
+	// top:20%;
+	// left:35%;
+	//position:absolute;
+	width:180px;
+	margin:30px auto 20px;
 	text-align:center;
-	input[type="text"], input[type="password"]{
-		border: solid 1px #E6E7E7;
-		width:250px;
+	.tryout{
 		display:block;
-		font-size:.9em;
-		padding:.3em .3em;
-		color:gray;
-		margin-bottom:20px;
-		@include box-shadow(1px 0px 4px -3px darken(#E6E7E7, 50%));
-	 }
-	input[type="submit"]{
-		//@include sassy-button-gradient("flat", lighten(#292929, 30%), $bluebtn2, white, inset);
-		@extend .green;
+		position:relative;
+		 color:white;
+		 text-decoration:none;
+		 z-index:1;
+		&:after{
+			content:"";
+			position:absolute;
+			z-index:-1;
+			left:5px;
+			right:5px;
+			top:5px;
+			bottom:5px;
+			background:darken($greenbtn1, 10%);
+			border-bottom:1px solid lighten($greenbtn1, 10%);
+			border-top:1px solid darken($greenbtn1, 10%);
+			border-left:1px solid darken($greenbtn1, 10%);
+			border-right:1px solid lighten($greenbtn1, 5%);
+		}
 	}
-	//vertical-align:center;
+}
+
+.source-code{
+	padding:5px;
+	p{
+		letter-spacing:.01em;
+	}
+	//border:1px solid gray;
+	@include clearfix();
+	.source-link{
+		margin-top:18px;
+		display:inline-block;
+		width:180px;
+
+		&:last-child{
+			margin-left:20px;
+
+		}
+	}
+	.git{
+		color:white;
+		//width:140px;
+		display:block;
+		font-size:20px;
+		position:relative;
+		z-index:1;
+		&:after{
+			content:"";
+			position:absolute;
+			z-index:-1;
+			left:5px;
+			right:5px;
+			top:5px;
+			bottom:5px;
+			border:1px solid darken($bluebtn1, 10%);
+		}
+	}
 }
 .cred{
 	color:$greenbtn1;

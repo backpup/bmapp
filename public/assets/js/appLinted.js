@@ -72,46 +72,28 @@ ratingWidget.prototype.rateOut=function()
 /** validation and error display on submit **/
 /**
 *@param array of inputs
-*@param denotes if the input array is of class group
 */
 
-var Validator =function(array, isGroup)
+var Validator =function(array)
 {
 	this.msgExist = false;
 	this.isValid = true;
-	var ct = 0;
-	(isGroup)? ct=2: ct=1;
-	switch(ct)
+	
+
+	if(array.title.length<1)
 	{
-		case 1:
-		{
-			if(array.title.length<1)
-			{
-				this.displayError('Title is required.');
-				this.isValid = false;
-				return;
-			}else if (/^[a-zA-Z _0-9-]+$/.test(array.title)===false)
-			{
-				this.displayError('Only alphabets, numbers and dashes are valid');
-				this.isValid = false;
-				return;
-			}else if(array.link.length<1){
-				this.displayError('Url is required');
-				this.isValid = false;
-				return
-			}
-			break;
-		}
-		case 2:
-		{
-			if(array[0].length<1)
-			{
-				this.displayError('Url is required.');
-				this.isValid=false;
-				return;
-			}
-			break;
-		}
+		this.displayError('Title is required.');
+		this.isValid = false;
+		return;
+	}else if (/^[a-zA-Z _0-9-]+$/.test(array.title)===false)
+	{
+		this.displayError('Only alphabets, numbers and dashes are valid');
+		this.isValid = false;
+		return;
+	}else if(array.link.length<1){
+		this.displayError('Url is required');
+		this.isValid = false;
+		return;
 	}
 
 };

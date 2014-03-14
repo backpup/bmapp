@@ -42,7 +42,20 @@
 			<a href="/logout" class="logoutLink">
 				<i class="fa fa-sign-out"></i>Logout
 			</a>
-			@endif
+		@else 
+		<div class="mainLogin">
+			{{ Form::open(array('url'=>'/')) }}
+
+				
+				{{ Form::text('username', '', array('tabindex'=>10, 'placeholder'=>'username')) }}
+			
+				<input type="password" name="password" tabindex="20" placeholder="password" />
+				<!-- <span class="remember">Did you forget your password?</span> -->
+				{{ Form::submit('Login', array('class'=>'button green', 'id'=>'loginBtn')) }}
+				<!-- <a href="#" class="button blue">Hello<i class ="fa fa-square"></i><i class ="fa fa-circle"></i></a> -->
+			{{ Form::close() }}
+		</div>
+		@endif
 		</div>
 
 		
