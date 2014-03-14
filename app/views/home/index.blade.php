@@ -15,7 +15,7 @@
 
 		<div class="source-code">
 			<div class="source-intro">
-				<p>Or if you would like to view the source-code. To the left is the js/jquery portion of the app in its entirety, all 800+ lines of it. And to the right is the entire project in github.</p>
+				<p>Or if you would like to view the source-code. To the left is the js/jquery portion of the app in its entirety, all 800+ lines of it. And to the right is the entire project on github.</p>
 			</div>
 			<div class="source-link">
 				<a class = "git bigBtn blue" target="_blank" href="https://gist.github.com/backpup/9530946">
