@@ -670,8 +670,13 @@ RowManager.prototype.filter=function(hello)
 	})
 
 	.done(function(data){
-		$('#bookmarks-body').empty()
-			.append(data.map(buildRowFromObject));
+		var rowBody = $('#bookmarks-body');
+		rowBody.empty();
+		for(var i = 0; i < data.length; i++)
+		{
+			var row = buildRowFromObject(data[i]);
+			rowBody.append(row);
+		}
 		prepRows();
 		renumberRows();
 	});
@@ -799,12 +804,7 @@ var buildRowFromObject = function(bookmark)
 
 	return newRow;
 };
-
-
 /* End Global Classes */
-
-
-
 
 /* misc end */
 
