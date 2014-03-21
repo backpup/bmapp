@@ -33,7 +33,7 @@ Route::post('search', array('uses'=>'UsersController@postSearch'));
 
 
 // Route::get('testthis', function(){
-// 	//return Bookmark::where('id','=',1)->get(array('title'));
+// 	return Bookmark::where('user_id','=',1)->where('group_id','=', 1)->get();
 // 	// $group = new Group;
 // 	// $group->bookmarkGroup = 'general';
 // 	// $group->user_id = '1';
@@ -45,7 +45,7 @@ Route::post('search', array('uses'=>'UsersController@postSearch'));
 // 		// $bookmark->group_id= '2';
 // 		// $bookmark->stars= 4;
 // 		// $bookmark->save();
-// 	return Bookmark::search('red');
+// 	//return Bookmark::search('red');
 // });
 
 /* App Controller */
